@@ -1,0 +1,55 @@
+/* styles.css */
+
+/* Estilos globais */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: #f5f7fa;
+}
+
+/* Estilos para dispositivos menores (responsividade) */
+@media screen and (max-width: 768px) {
+    #sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+    }
+
+    .modern-title {
+        font-size: 36px;
+    }
+
+    #grafico {
+        height: auto;
+        margin-top: 20px;
+    }
+}
+
+#consultar-button:hover {
+    background-color: #e89d18; /* Tom mais escuro no hover */
+    transform: scale(1.05); /* Leve efeito de zoom */
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3); /* Realce da sombra */
+}
+
+#limpar-button:hover {
+    background-color: #3d5260; /* Tom mais escuro no hover */
+    transform: scale(1.05); /* Leve efeito de zoom */
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3); /* Realce da sombra */
+}
+
+/* Efeito ao passar o mouse sobre os links no sidebar */
+.nav-link:hover {
+    background-color: #6C7D8A !important; /* Fundo mais claro */
+    color: white !important; /* Mantém o texto branco */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Sombra leve no link */
+    transform: translateY(-2px); /* Efeito de elevação */
+    transition: all 0.3s ease-in-out; /* Animação suave */
+}
+
+/* Estilo para o link ativo no sidebar */
+.nav-link.active {
+    background-color: #3D5260 !important; /* Destaque para o item ativo */
+    font-weight: bold;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+}

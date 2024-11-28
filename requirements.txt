@@ -1,0 +1,10 @@
+# bibliotecas instaladas
+
+dash
+dash-bootstrap-components
+pandas
+XlsxWriter
+dash-table
+dash-ag-grid
+cx_Oracle
+sqlalchemy

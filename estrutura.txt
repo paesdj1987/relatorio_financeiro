@@ -1,0 +1,11 @@
+.
+├── app.py               # Arquivo principal para executar o aplicativo
+├── callbacks.py         # Funções de callback e lógica de interação
+├── layout.py            # Definição do layout principal do aplicativo
+├── sidebar.py           # Sidebar com menus e opções
+├── styles               # Pasta para arquivos de estilo (CSS)
+│   └── styles.css
+├── assets               # Pasta para arquivos de imagem
+│   └── logo.png
+|   └── excel.png
+└── vw_financeiro_obra.csv  # Arquivo CSV com os dados
