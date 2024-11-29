@@ -40,7 +40,7 @@ def register_callbacks(app):
                 df = pd.read_csv(
                     'vw_financeiro_obra.csv',
                     encoding='utf-8',
-                    sep=';',
+                    sep=';',  # Delimitador do CSV
                     quotechar='"',
                     dtype=str,
                     engine='python'

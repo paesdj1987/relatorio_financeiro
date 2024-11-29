@@ -1,31 +1,44 @@
 # request.py
 import pandas as pd
 from sqlalchemy import create_engine
+import oracledb
 import re
+import os
 
 def fetch_data_from_oracle():
-    # Configure a conexão com o banco de dados Oracle usando SQLAlchemy
-    engine = create_engine('oracle+cx_oracle://OR_CONSULTA:OR_CONSULTA@10.148.64.157:1521/PRODMZ')
-
     try:
-        # Execute a consulta na view vw_financeiro_obra
+        # Inicializar o Oracle Client no modo Thick
+        instant_client_path = r"C:\app\client\joaodanilo\product\12.2.0\client_1"  # Caminho do client 
+        if not os.path.exists(instant_client_path):
+            raise FileNotFoundError(f"Oracle Instant Client não encontrado no caminho especificado: {instant_client_path}")
+
+        oracledb.init_oracle_client(lib_dir=instant_client_path)
+        print("Oracle Client inicializado com sucesso.")
+
+        # Configurar a string de conexão
+        connection_string = (
+            "oracle+oracledb://OR_CONSULTA:OR_CONSULTA@10.148.64.157:1521/PRODMZ"
+        )
+
+        # Criar o engine do SQLAlchemy
+        print("Conectando ao banco de dados Oracle...")
+        engine = create_engine(connection_string)
+
+        # Executar a consulta na view vw_financeiro_obra
         query = 'SELECT * FROM OR_PGI."vw_financeiro_obra"'
+        print(f"Executando consulta SQL: {query}")
         df = pd.read_sql(query, con=engine)
+        print(f"Consulta executada com sucesso. {len(df)} registros recuperados.")
 
         # Função para normalizar os nomes das colunas
         def normalize_column_name(col_name):
             col_name = col_name.strip()
-            col_name = re.sub(r'[^\w\s]', '', col_name)  # Remove caracteres não alfanuméricos
+            col_name = re.sub(r'[^\w\s]', '', col_name)  
             col_name = col_name.replace(' ', '_')
             return col_name
 
         # Aplicar normalização aos nomes das colunas
         df.columns = [normalize_column_name(col) for col in df.columns]
-
-        # Converter colunas LOB para strings, se necessário
-        for col in df.columns:
-            if df[col].dtype == object and len(df[col]) > 0 and isinstance(df[col].iloc[0], bytes):
-                df[col] = df[col].astype(str)
 
         # Formatar colunas de data, se necessário
         date_columns = [
@@ -35,17 +48,19 @@ def fetch_data_from_oracle():
         ]
         for col in date_columns:
             if col in df.columns:
-                df[col] = pd.to_datetime(df[col]).dt.strftime('%d/%m/%Y')
+                df[col] = pd.to_datetime(df[col], errors='coerce').dt.strftime('%d/%m/%Y')
 
-        # Salvar o DataFrame em um arquivo CSV, sobrescrevendo o existente, com ";" como delimitador
-        df.to_csv('vw_financeiro_obra.csv', index=False, encoding='utf-8', sep=';')
+        # Salvar o DataFrame em um arquivo CSV
+        output_csv = 'vw_financeiro_obra.csv'
+        df.to_csv(output_csv, index=False, encoding='utf-8', sep=';')
+        print(f"Arquivo CSV '{output_csv}' gerado com sucesso.")
 
+    except oracledb.DatabaseError as e:
+        print(f"Erro ao se conectar ao Oracle: {e}")
+    except FileNotFoundError as e:
+        print(e)
     except Exception as e:
         print(f"Erro ao obter dados do Oracle: {e}")
-
-    finally:
-        # Certifique-se de fechar o engine
-        engine.dispose()
 
 if __name__ == "__main__":
     fetch_data_from_oracle()
