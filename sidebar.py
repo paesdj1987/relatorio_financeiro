@@ -14,7 +14,7 @@ def create_sidebar():
                         style={"margin-bottom": "10px"}
                     ),
                     html.H3(
-                        "Financeiro PGI",
+                        "Relatório - PGI",
                         className="display-7",
                         style={
                             "color": "white",
@@ -53,37 +53,44 @@ def create_sidebar():
                     },
                 ),
                 dbc.NavLink(
-                    [
-                        html.I(className="fas fa-table me-3"),
-                        html.Span("Tabela"),
-                    ],
-                    href="#",
-                    active="exact",
-                    className="nav-link",
-                    style={
-                        "color": "white",
-                        "font-size": "16px",
-                        "padding": "12px 20px",
-                        "border-radius": "8px",
-                        "transition": "all 0.3s ease-in-out",
-                    },
-                ),
-                dbc.NavLink(
-                    [
-                        html.I(className="fas fa-chart-line me-3"),
-                        html.Span("Gráficos"),
-                    ],
-                    href="#",
-                    active="exact",
-                    className="nav-link",
-                    style={
-                        "color": "white",
-                        "font-size": "16px",
-                        "padding": "12px 20px",
-                        "border-radius": "8px",
-                        "transition": "all 0.3s ease-in-out",
-                    },
-                ),
+                [
+                    html.I(className="fas fa-table me-3", style={"margin-right": "20px"}),  # Ajuste do ícone
+                    html.Span("Mapa de Controle"),
+                ],
+                href="#",
+                active="exact",
+                className="nav-link",
+                style={
+                    "color": "white",
+                    "font-size": "14px",
+                    "padding": "12px 8px",  # Reduzido o padding horizontal
+                    "border-radius": "8px",
+                    "transition": "all 0.3s ease-in-out",
+                    "justify-content": "flex-start",  # Força os itens a alinharem à esquerda
+                    "display": "flex",  # Garante que flexbox é aplicado
+                    "align-items": "center",  # Centraliza verticalmente os itens
+                },
+            ),
+            dbc.NavLink(
+                [
+                    html.I(className="fas fa-chart-line me-3", style={"margin-right": "20px"}),  # Ajuste do ícone
+                    html.Span("Gráficos"),
+                ],
+                href="#",
+                active="exact",
+                className="nav-link",
+                style={
+                    "color": "white",
+                    "font-size": "14px",
+                    "padding": "12px 8px",  # Reduzido o padding horizontal
+                    "border-radius": "8px",
+                    "transition": "all 0.3s ease-in-out",
+                    "justify-content": "flex-start",  # Força os itens a alinharem à esquerda
+                    "display": "flex",  # Garante que flexbox é aplicado
+                    "align-items": "center",  # Centraliza verticalmente os itens
+                },
+            ),
+
             ],
             style={
                 "margin-bottom": "20px",

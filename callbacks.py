@@ -21,11 +21,13 @@ def register_callbacks(app):
         [
             State("input-filter-sc", "value"),
             State("input-filter-pc", "value"),
-            State("input-filter-nf", "value")
+            State("input-filter-nf", "value"),
+            State("input-filter-cod-obra", "value"),
+            State("input-filter-insumo", "value")
         ],
         prevent_initial_call=True
     )
-    def update_output(n_clicks_consultar, n_clicks_limpar, sc_filter, pc_filter, nf_filter):
+    def update_output(n_clicks_consultar, n_clicks_limpar, sc_filter, pc_filter, nf_filter, cod_obra_filter, insumo_filter):
         global df_global
 
         ctx = dash.callback_context
@@ -49,19 +51,30 @@ def register_callbacks(app):
                 # Garantir que as colunas relevantes sejam tratadas como strings
                 df = df.fillna('')
 
-                # Aplicar filtros, se houver
-                if sc_filter:
-                    sc_filter = str(sc_filter).strip()
-                    df = df[df["N_da_SC"].str.contains(sc_filter, case=False, na=False)]
+                # Aplicar filtros
+                if sc_filter:              
+                    sc_filter = [item.strip() for item in sc_filter.split(';')]  
+                    df = df[df["N_da_SC"].isin(sc_filter)]  
 
                 if pc_filter:
-                    pc_filter = str(pc_filter).strip()
-                    df = df[df["N_do_PC"].str.contains(pc_filter, case=False, na=False)]
-
+                    pc_filter = [item.strip() for item in pc_filter.split(';')]  
+                    df = df[df["N_do_PC"].isin(pc_filter)]  
+                    
                 if nf_filter:
-                    nf_filter = str(nf_filter).strip()
-                    df = df[df["N_da_NF"].str.contains(nf_filter, case=False, na=False)]
+                    nf_filter = [item.strip() for item in nf_filter.split(';')]  
+                    df = df[df["N_da_NF"].isin(nf_filter)]  
 
+                if cod_obra_filter:
+                    cod_obra_filter = [item.strip() for item in cod_obra_filter.split(';')]  
+                    df = df[df["Cod_Obra"].isin(cod_obra_filter)]
+                
+                if insumo_filter:
+                    insumo_filter = [item.strip() for item in insumo_filter.split(';')]  # Divide por ";"
+                    df = df[df["Descricao_do_insumo"].apply(
+                        lambda x: any(term.lower() in x.lower() for term in insumo_filter)
+                    )]
+
+  
                 df_global = df
 
                 if df.empty:
@@ -105,7 +118,7 @@ def register_callbacks(app):
                 return f"Erro ao ler os dados do CSV: {e}", {"display": "none"}
 
         elif button_id == 'limpar-button':
-            # Retorne valores padrão e deixe o client-side callback cuidar do refresh
+            # Retornar valores padrão e deixe o client-side callback cuidar do refresh
             return "", {"display": "none"}
 
         return no_update, no_update

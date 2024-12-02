@@ -14,7 +14,7 @@ external_stylesheets = [
 ]
 
 # Inicialização do Dash
-app = dash.Dash(__name__, external_stylesheets=external_stylesheets, suppress_callback_exceptions=True, title="Financeiro Obra - PGI")
+app = dash.Dash(__name__, external_stylesheets=external_stylesheets, suppress_callback_exceptions=True, title="Relatório - PGI")
 
 # Layout principal
 app.layout = create_layout()

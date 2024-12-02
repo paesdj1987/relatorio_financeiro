@@ -10,7 +10,7 @@ def create_layout():
             html.Div(
                 [
                     html.H1(
-                        "Financeiro Obra - PGI",
+                        "Mapa de Controle de Compras",
                         style={
                             "font-size": "38px",
                             "font-weight": "600",
@@ -23,7 +23,7 @@ def create_layout():
                     # Linha decorativa abaixo do título
                     html.Div(
                         style={
-                            "width": "500px",
+                            "width": "600px",
                             "height": "3px",
                             "background-color": "#343a40",
                             "margin": "10px auto 20px auto"
@@ -45,8 +45,9 @@ def create_layout():
                         placeholder='Pesquisar por SC...',
                         style={
                             'margin-bottom': '30px',
-                            'width': '240px',
+                            'width': '160px',
                             'height': '42px',
+                            "font-size": "13px",
                             'border-radius': '12px',
                             'border': '1px solid #d1d1d1',
                             'background-color': '#ffffff',
@@ -62,8 +63,9 @@ def create_layout():
                         placeholder='Pesquisar por PC...',
                         style={
                             'margin-bottom': '30px',
-                            'width': '240px',
+                            'width': '160px',
                             'height': '42px',
+                            "font-size": "13px",
                             'border-radius': '12px',
                             'border': '1px solid #d1d1d1',
                             'background-color': '#ffffff',
@@ -79,8 +81,45 @@ def create_layout():
                         placeholder='Pesquisar por NF...',
                         style={
                             'margin-bottom': '30px',
-                            'width': '240px',
+                            'width': '160px',
                             'height': '42px',
+                            "font-size": "13px",
+                            'border-radius': '12px',
+                            'border': '1px solid #d1d1d1',
+                            'background-color': '#ffffff',
+                            'padding-left': '15px',
+                            'margin-right': '15px',
+                            'box-shadow': '0 3px 6px rgba(0, 0, 0, 0.1)',
+                            'transition': 'all 0.3s ease-in-out',
+                        }
+                    ),
+                    dcc.Input(
+                        id='input-filter-cod-obra',
+                        type='text',
+                        placeholder='Pesquisar por UO...',
+                        style={
+                            'margin-bottom': '30px',
+                            'width': '160px',
+                            'height': '42px',
+                            "font-size": "13px",
+                            'border-radius': '12px',
+                            'border': '1px solid #d1d1d1',
+                            'background-color': '#ffffff',
+                            'padding-left': '15px',
+                            'margin-right': '15px',
+                            'box-shadow': '0 3px 6px rgba(0, 0, 0, 0.1)',
+                            'transition': 'all 0.3s ease-in-out',
+                        }
+                    ),
+                    dcc.Input(
+                        id='input-filter-insumo',
+                        type='text',
+                        placeholder='Pesquisar por Insumo...',
+                        style={
+                            'margin-bottom': '30px',
+                            'width': '160px',
+                            'height': '42px',
+                            "font-size": "13px",
                             'border-radius': '12px',
                             'border': '1px solid #d1d1d1',
                             'background-color': '#ffffff',
