@@ -42,4 +42,4 @@ if __name__ == '__main__':
         print("AVISO: O arquivo vw_financeiro_obra.csv não foi encontrado.")
 
     print("Aplicação iniciada com sucesso...")
-    app.run_server(debug=True, port=8053)
+    app.run_server(debug=False, host='0.0.0.0')

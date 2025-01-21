@@ -6,5 +6,4 @@ pandas
 XlsxWriter
 dash-table
 dash-ag-grid
-cx_Oracle
 sqlalchemy

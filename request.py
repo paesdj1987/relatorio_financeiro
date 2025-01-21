@@ -8,7 +8,7 @@ import os
 def fetch_data_from_oracle():
     try:
         # Inicializar o Oracle Client no modo Thick
-        instant_client_path = r"C:\app\client\joaodanilo\product\12.2.0\client_1"  # Caminho do client 
+        instant_client_path = r"C:\app\client\mateussena\product\12.2.0\client_1"  # Caminho do client 
         if not os.path.exists(instant_client_path):
             raise FileNotFoundError(f"Oracle Instant Client não encontrado no caminho especificado: {instant_client_path}")
 

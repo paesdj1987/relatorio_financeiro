@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  app:
+    image: 'vw_financeiro_obra:latest'
+    build:
+      context: .
+    container_name: vw_financeiro_obra
+    ports:
+      - 8052:8052
