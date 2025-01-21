@@ -5,4 +5,4 @@ services:
       context: .
     container_name: vw_financeiro_obra
     ports:
-      - '8052:8052'
+      - 8052:8052
