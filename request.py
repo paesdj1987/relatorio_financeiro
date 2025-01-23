@@ -8,7 +8,7 @@ import os
 def fetch_data_from_oracle():
     try:
         # Inicializar o Oracle Client no modo Thick
-        instant_client_path = r"C:\app\client\mateussena\product\12.2.0\client_1"  # Caminho do client 
+        instant_client_path = "/usr/lib/oracle/instantclient"  # Caminho do client 
         if not os.path.exists(instant_client_path):
             raise FileNotFoundError(f"Oracle Instant Client não encontrado no caminho especificado: {instant_client_path}")
 
@@ -51,7 +51,7 @@ def fetch_data_from_oracle():
                 df[col] = pd.to_datetime(df[col], errors='coerce').dt.strftime('%d/%m/%Y')
 
         # Salvar o DataFrame em um arquivo CSV
-        output_csv = 'vw_financeiro_obra.csv'
+        output_csv = '/shared_data/vw_financeiro_obra.csv'
         df.to_csv(output_csv, index=False, encoding='utf-8', sep=';')
         print(f"Arquivo CSV '{output_csv}' gerado com sucesso.")
 

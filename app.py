@@ -38,7 +38,7 @@ app.clientside_callback(
 
 if __name__ == '__main__':
     # Verificar se o CSV existe antes de iniciar o servidor
-    if not os.path.exists('vw_financeiro_obra.csv'):
+    if not os.path.exists('/shared_data/vw_financeiro_obra.csv'):
         print("AVISO: O arquivo vw_financeiro_obra.csv não foi encontrado.")
 
     print("Aplicação iniciada com sucesso...")
