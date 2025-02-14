@@ -7,4 +7,3 @@ XlsxWriter
 dash-table
 dash-ag-grid
 sqlalchemy
-oracledb

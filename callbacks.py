@@ -1,3 +1,4 @@
+# callbacks.py
 import dash
 import pandas as pd
 from dash.dependencies import Input, Output, State
@@ -22,16 +23,11 @@ def register_callbacks(app):
             State("input-filter-pc", "value"),
             State("input-filter-nf", "value"),
             State("input-filter-cod-obra", "value"),
-            State("input-filter-insumo", "value"),
-            State("input-filter-fornecedor", "value"),
-            State("input-filter-ua-codigo", "value"),
+            State("input-filter-insumo", "value")
         ],
         prevent_initial_call=True
     )
-    def update_output(n_clicks_consultar, n_clicks_limpar, 
-                      sc_filter, pc_filter, nf_filter, 
-                      cod_obra_filter, insumo_filter,
-                      fornecedor_filter, ua_codigo_filter):
+    def update_output(n_clicks_consultar, n_clicks_limpar, sc_filter, pc_filter, nf_filter, cod_obra_filter, insumo_filter):
         global df_global
 
         ctx = dash.callback_context
@@ -44,52 +40,43 @@ def register_callbacks(app):
             try:
                 # Ler dados do arquivo CSV gerado pelo request.py
                 df = pd.read_csv(
-                    'shared_data/vw_financeiro_obra.csv',  # Caminho para a pasta shared_data
+                    'vw_financeiro_obra.csv',
                     encoding='utf-8',
-                    sep=';',
+                    sep=';',  # Delimitador do CSV
                     quotechar='"',
                     dtype=str,
                     engine='python'
                 )
 
-                # Garantir que as colunas sejam tratadas como strings
+                # Garantir que as colunas relevantes sejam tratadas como strings
                 df = df.fillna('')
 
                 # Aplicar filtros
-                if sc_filter:
-                    sc_filter = [item.strip() for item in sc_filter.split(';')]
-                    df = df[df["N_da_SC"].isin(sc_filter)]
+                if sc_filter:              
+                    sc_filter = [item.strip() for item in sc_filter.split(';')]  
+                    df = df[df["N_da_SC"].isin(sc_filter)]  
 
                 if pc_filter:
-                    pc_filter = [item.strip() for item in pc_filter.split(';')]
-                    df = df[df["N_do_PC"].isin(pc_filter)]
-
+                    pc_filter = [item.strip() for item in pc_filter.split(';')]  
+                    df = df[df["N_do_PC"].isin(pc_filter)]  
+                    
                 if nf_filter:
-                    nf_filter = [item.strip() for item in nf_filter.split(';')]
-                    df = df[df["N_da_NF"].isin(nf_filter)]
+                    nf_filter = [item.strip() for item in nf_filter.split(';')]  
+                    df = df[df["N_da_NF"].isin(nf_filter)]  
 
                 if cod_obra_filter:
-                    cod_obra_filter = [item.strip() for item in cod_obra_filter.split(';')]
+                    cod_obra_filter = [item.strip() for item in cod_obra_filter.split(';')]  
                     df = df[df["Cod_Obra"].isin(cod_obra_filter)]
-
+                
                 if insumo_filter:
-                    insumo_filter = [item.strip() for item in insumo_filter.split(';')]
+                    insumo_filter = [item.strip() for item in insumo_filter.split(';')]  # Divide por ";"
                     df = df[df["Descricao_do_insumo"].apply(
                         lambda x: any(term.lower() in x.lower() for term in insumo_filter)
                     )]
-                if fornecedor_filter:
-                    fornecedor_filter = [item.strip() for item in fornecedor_filter.split(';')]
-                    df = df[df["Fornecedor"].apply(
-                    lambda x: any(term.lower() in x.lower() for term in fornecedor_filter)
-                    )]
 
-                if ua_codigo_filter:
-                    ua_codigo_filter = [item.strip() for item in ua_codigo_filter.split(';')]
-                    df = df[df["UA__Código"].isin(ua_codigo_filter)]
-
+  
                 df_global = df
 
-                # Construir a tabela ou mensagem de vazio
                 if df.empty:
                     table = html.Div("Nenhum resultado encontrado.")
                     export_style = {"display": "none"}
@@ -131,7 +118,7 @@ def register_callbacks(app):
                 return f"Erro ao ler os dados do CSV: {e}", {"display": "none"}
 
         elif button_id == 'limpar-button':
-            # Retorna valores padrão e deixa o client-side callback recarregar a página
+            # Retornar valores padrão e deixe o client-side callback cuidar do refresh
             return "", {"display": "none"}
 
         return no_update, no_update
@@ -144,7 +131,7 @@ def register_callbacks(app):
     def download_excel(n_clicks):
         global df_global
         if df_global is not None and not df_global.empty:
-            # Converter o DataFrame para um arquivo Excel em memória
+            # Converte o DataFrame para um arquivo Excel em memória
             buffer = io.BytesIO()
             with pd.ExcelWriter(buffer, engine='xlsxwriter') as writer:
                 df_global.to_excel(writer, index=False)

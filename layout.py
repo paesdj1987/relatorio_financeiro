@@ -36,7 +36,7 @@ def create_layout():
                 }
             ),
 
-            # Primeira linha de campos de pesquisa (SC, PC, NF, UO)
+            # Linha para campos de pesquisa (SC, PC e NF)
             html.Div(
                 [
                     dcc.Input(
@@ -44,14 +44,15 @@ def create_layout():
                         type='text',
                         placeholder='Pesquisar por SC...',
                         style={
-                            'margin-bottom': '15px',
-                            'width': '200px',
+                            'margin-bottom': '30px',
+                            'width': '160px',
                             'height': '42px',
-                            'font-size': '12px',
+                            "font-size": "13px",
                             'border-radius': '12px',
                             'border': '1px solid #d1d1d1',
                             'background-color': '#ffffff',
-                            'padding-left': '10px',
+                            'padding-left': '15px',
+                            'margin-right': '15px',
                             'box-shadow': '0 3px 6px rgba(0, 0, 0, 0.1)',
                             'transition': 'all 0.3s ease-in-out',
                         }
@@ -61,14 +62,15 @@ def create_layout():
                         type='text',
                         placeholder='Pesquisar por PC...',
                         style={
-                            'margin-bottom': '15px',
-                            'width': '200px',
+                            'margin-bottom': '30px',
+                            'width': '160px',
                             'height': '42px',
-                            'font-size': '12px',
+                            "font-size": "13px",
                             'border-radius': '12px',
                             'border': '1px solid #d1d1d1',
                             'background-color': '#ffffff',
-                            'padding-left': '20px',
+                            'padding-left': '15px',
+                            'margin-right': '15px',
                             'box-shadow': '0 3px 6px rgba(0, 0, 0, 0.1)',
                             'transition': 'all 0.3s ease-in-out',
                         }
@@ -78,14 +80,15 @@ def create_layout():
                         type='text',
                         placeholder='Pesquisar por NF...',
                         style={
-                            'margin-bottom': '15px',
-                            'width': '200px',
+                            'margin-bottom': '30px',
+                            'width': '160px',
                             'height': '42px',
-                            'font-size': '12px',
+                            "font-size": "13px",
                             'border-radius': '12px',
                             'border': '1px solid #d1d1d1',
                             'background-color': '#ffffff',
-                            'padding-left': '20px',
+                            'padding-left': '15px',
+                            'margin-right': '15px',
                             'box-shadow': '0 3px 6px rgba(0, 0, 0, 0.1)',
                             'transition': 'all 0.3s ease-in-out',
                         }
@@ -95,73 +98,28 @@ def create_layout():
                         type='text',
                         placeholder='Pesquisar por UO...',
                         style={
-                            'margin-bottom': '15px',
-                            'width': '200px',
+                            'margin-bottom': '30px',
+                            'width': '160px',
                             'height': '42px',
-                            'font-size': '12px',
+                            "font-size": "13px",
                             'border-radius': '12px',
                             'border': '1px solid #d1d1d1',
                             'background-color': '#ffffff',
-                            'padding-left': '20px',
+                            'padding-left': '15px',
+                            'margin-right': '15px',
                             'box-shadow': '0 3px 6px rgba(0, 0, 0, 0.1)',
                             'transition': 'all 0.3s ease-in-out',
                         }
                     ),
-                ],
-                style={
-                    "display": "flex",
-                    "justify-content": "center",
-                    "gap": "40px",             # <--- Espaçamento horizontal entre os inputs
-                    "margin-bottom": "40px",   # Espaçamento vertical para a próxima seção
-                }
-            ),
-
-            # Segunda linha de campos de pesquisa (Insumo, Fornecedor, UA)
-            html.Div(
-                [
                     dcc.Input(
                         id='input-filter-insumo',
                         type='text',
                         placeholder='Pesquisar por Insumo...',
                         style={
-                            'margin-bottom': '15px',
-                            'width': '200px',
+                            'margin-bottom': '30px',
+                            'width': '160px',
                             'height': '42px',
-                            'font-size': '12px',
-                            'border-radius': '12px',
-                            'border': '1px solid #d1d1d1',
-                            'background-color': '#ffffff',
-                            'padding-left': '15px',
-                            'box-shadow': '0 3px 6px rgba(0, 0, 0, 0.1)',
-                            'transition': 'all 0.3s ease-in-out',
-                        }
-                    ),
-                    dcc.Input(
-                        id='input-filter-fornecedor',
-                        type='text',
-                        placeholder='Pesquisar por Fornecedor...',
-                        style={
-                            'margin-bottom': '15px',
-                            'width': '200px',
-                            'height': '42px',
-                            'font-size': '12px',
-                            'border-radius': '12px',
-                            'border': '1px solid #d1d1d1',
-                            'background-color': '#ffffff',
-                            'padding-left': '15px',
-                            'box-shadow': '0 3px 6px rgba(0, 0, 0, 0.1)',
-                            'transition': 'all 0.3s ease-in-out',
-                        }
-                    ),
-                    dcc.Input(
-                        id='input-filter-ua-codigo',
-                        type='text',
-                        placeholder='Pesquisar por UA...',
-                        style={
-                            'margin-bottom': '15px',
-                            'width': '200px',
-                            'height': '42px',
-                            'font-size': '12px',
+                            "font-size": "13px",
                             'border-radius': '12px',
                             'border': '1px solid #d1d1d1',
                             'background-color': '#ffffff',
@@ -173,12 +131,9 @@ def create_layout():
                 ],
                 style={
                     "display": "flex",
-                    "justify-content": "center",
-                    "gap": "40px",  # <-- Espaçamento entre os inputs na linha
-                    "margin-bottom": "25px",
+                    "justify-content": "center"
                 }
             ),
-
 
             # Div para os botões
             html.Div(
@@ -228,7 +183,7 @@ def create_layout():
                 style={
                     "display": "flex",
                     "justify-content": "center",
-                    "margin-bottom": "25px",
+                    "margin-bottom": "20px",
                 }
             ),
 
@@ -243,7 +198,7 @@ def create_layout():
                             n_clicks=0,
                             style={
                                 "height": "50px",
-                                "width": "60px",
+                                "width": "50px",
                                 "cursor": "pointer",
                             }
                         ),

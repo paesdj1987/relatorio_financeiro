@@ -10,7 +10,7 @@ import os
 external_stylesheets = [
     dbc.themes.BOOTSTRAP,
     "https://use.fontawesome.com/releases/v5.15.4/css/all.css",
-    #"/assets/style.css",
+    "/assets/style.css",
 ]
 
 # Inicialização do Dash
@@ -42,5 +42,4 @@ if __name__ == '__main__':
         print("AVISO: O arquivo vw_financeiro_obra.csv não foi encontrado.")
 
     print("Aplicação iniciada com sucesso...")
-    app.run_server(debug=False)
-    #app.run_server(debug=False, host='0.0.0.0', port=8052)
+    app.run_server(debug=False, host='0.0.0.0', port=8052)
