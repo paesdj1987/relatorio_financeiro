@@ -8,7 +8,7 @@ import oracledb
 def fetch_data_from_oracle():
     try:
         # Caminho do Oracle Instant Client
-        instant_client_path = r"C:\app\client\joaodanilo\product\12.2.0\client_1"
+        instant_client_path = r"/usr/lib/oracle/instantclient"
         if not os.path.exists(instant_client_path):
             raise FileNotFoundError(f"Oracle Instant Client não encontrado no caminho especificado: {instant_client_path}")
 
