@@ -21,10 +21,10 @@ def register_callbacks(app):
             State("input-filter-sc", "value"),
             State("input-filter-pc", "value"),
             State("input-filter-nf", "value"),
-            State("input-filter-cod-obra", "value"),
-            State("input-filter-insumo", "value"),
+            State("input-filter-cod-obra", "value"),        
+            State("input-filter-insumo", "value"),          
             State("input-filter-fornecedor", "value"),
-            State("input-filter-ua-codigo", "value"),
+            State("input-filter-ua-codigo", "value"),       
         ],
         prevent_initial_call=True
     )
@@ -52,41 +52,60 @@ def register_callbacks(app):
                     engine='python'
                 )
 
-                # Garantir que as colunas sejam tratadas como strings
-                df = df.fillna('')
+                # Preencher valores NA com string vazia e converter todos para str
+                df = df.fillna('').astype(str)
 
-                # Aplicar filtros
+
+                # Filtro SC 
                 if sc_filter:
-                    sc_filter = [item.strip() for item in sc_filter.split(';')]
-                    df = df[df["N_da_SC"].isin(sc_filter)]
+                    sc_terms = [term.strip().lower() for term in sc_filter.split(';')]
+                    df = df[df["N_da_SC"].apply(
+                        lambda x: any(t in x.lower() for t in sc_terms)
+                    )]
 
+                # Filtro PC 
                 if pc_filter:
-                    pc_filter = [item.strip() for item in pc_filter.split(';')]
-                    df = df[df["N_do_PC"].isin(pc_filter)]
+                    pc_terms = [term.strip().lower() for term in pc_filter.split(';')]
+                    df = df[df["N_do_PC"].apply(
+                        lambda x: any(t in x.lower() for t in pc_terms)
+                    )]
 
+                # Filtro NF 
                 if nf_filter:
-                    nf_filter = [item.strip() for item in nf_filter.split(';')]
-                    df = df[df["N_da_NF"].isin(nf_filter)]
+                    nf_terms = [term.strip().lower() for term in nf_filter.split(';')]
+                    df = df[df["N_da_NF"].apply(
+                        lambda x: any(t in x.lower() for t in nf_terms)
+                    )]
 
+                # Filtro UO -> coluna "Cod_Obra" 
                 if cod_obra_filter:
-                    cod_obra_filter = [item.strip() for item in cod_obra_filter.split(';')]
-                    df = df[df["Cod_Obra"].isin(cod_obra_filter)]
+                    uo_terms = [term.strip().lower() for term in cod_obra_filter.split(';')]
+                    df = df[df["Cód_Obra"].apply(
+                        lambda x: any(t in x.lower() for t in uo_terms)
+                    )]
+                    
 
+                # Filtro Insumo -> coluna "Descrição_do_insumo"
                 if insumo_filter:
-                    insumo_filter = [item.strip() for item in insumo_filter.split(';')]
-                    df = df[df["Descricao_do_insumo"].apply(
-                        lambda x: any(term.lower() in x.lower() for term in insumo_filter)
+                    insumo_terms = [term.strip().lower() for term in insumo_filter.split(';')]
+                    df = df[df["Descrição_do_insumo"].apply(
+                        lambda x: any(t in x.lower() for t in insumo_terms)
                     )]
+
+                # Filtro Fornecedor 
                 if fornecedor_filter:
-                    fornecedor_filter = [item.strip() for item in fornecedor_filter.split(';')]
+                    fornecedor_terms = [term.strip().lower() for term in fornecedor_filter.split(';')]
                     df = df[df["Fornecedor"].apply(
-                    lambda x: any(term.lower() in x.lower() for term in fornecedor_filter)
+                        lambda x: any(t in x.lower() for t in fornecedor_terms)
                     )]
 
+                # Filtro UA -> coluna "UA_Código"
                 if ua_codigo_filter:
-                    ua_codigo_filter = [item.strip() for item in ua_codigo_filter.split(';')]
-                    df = df[df["UA__Código"].isin(ua_codigo_filter)]
-
+                    ua_terms = [term.strip().lower() for term in ua_codigo_filter.split(';')]
+                    df = df[df["UA_Código"].apply(
+                        lambda x: any(t in x.lower() for t in ua_terms)
+                    )]
+                
                 df_global = df
 
                 # Construir a tabela ou mensagem de vazio
@@ -131,7 +150,6 @@ def register_callbacks(app):
                 return f"Erro ao ler os dados do CSV: {e}", {"display": "none"}
 
         elif button_id == 'limpar-button':
-            # Retorna valores padrão e deixa o client-side callback recarregar a página
             return "", {"display": "none"}
 
         return no_update, no_update
