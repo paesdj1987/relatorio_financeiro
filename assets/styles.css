@@ -10,93 +10,6 @@
 }
 
 /* =============================
-   SIDEBAR MODERNIZADO
-   ============================= */
-
-.sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    width: 220px;
-    background: rgba(69, 95, 107, 0.90);  /* Cor base com transparência */
-    backdrop-filter: blur(8px);  /* efeito vidro fosco */
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
-    padding: 20px;
-    z-index: 1000;
-    overflow-y: auto;
-    transition: all 0.3s ease-in-out;
-}
-
-/* Cabeçalho do sidebar */
-.sidebar-header {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.sidebar-logo {
-    height: 50px;
-    margin-bottom: 10px;
-}
-
-.sidebar-title {
-    color: #ffffff;
-    font-size: 1.2rem;
-    font-weight: bold;
-    margin: 0;
-    font-family: 'Montserrat', sans-serif; /* ou outra fonte */
-}
-
-/* Separador */
-.sidebar-divider {
-    border-top: 1px solid rgba(255, 255, 255, 0.2);
-    margin-bottom: 20px;
-}
-
-/* Links do sidebar */
-.sidebar-nav {
-    margin-top: 10px;
-}
-
-.sidebar-link {
-    display: flex;
-    align-items: center;
-    color: #ECECEC !important; /* Cor clara */
-    font-size: 0.95rem;
-    margin-bottom: 5px;
-    border-radius: 8px;
-    transition: background-color 0.3s, color 0.3s, transform 0.2s;
-}
-
-/* Hover nos links */
-.sidebar-link:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-    color: #FFFFFF !important;
-    transform: translateX(5px);
-    box-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
-}
-
-/* Link ativo */
-.sidebar-link.active,
-.sidebar-link:focus {
-    background-color: rgba(255, 255, 255, 0.15);
-    color: #FFFFFF !important;
-    transform: translateX(5px);
-}
-
-/* Rodapé do sidebar */
-.sidebar-footer {
-    position: absolute;
-    bottom: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: fit-content;
-    color: #A9BCC1;
-    font-size: 12px;
-    text-align: center;
-}
-
-/* =============================
    EFEITOS NOS BOTÕES 
    ============================= */
 
@@ -112,18 +25,40 @@
     box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
 }
 
+.nav-button:hover {
+    background-color: white !important;
+    color: #35546F !important;
+    border-color: #35546F !important;
+}
+
+
 /* =============================
-   ESTILOS PARA RESPONSIVIDADE
+   ESTILOS PARA RESPONSIVIDADE 
    ============================= */
 
-@media screen and (max-width: 768px) {
-    .sidebar {
-        width: 180px;
+/* Caso haja regras específicas para outros elementos responsivos, insira-as aqui */
+
+/* =============================
+   ESTILOS PARA LAYOUT INICIAL
+   ============================= */
+
+/* Animação de fade-in */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
 
-@media screen and (max-width: 576px) {
-    .sidebar {
-        width: 160px;
-    }
+/* Efeito hover para botões da home */
+.btn-home:hover {
+    background-color: white !important;
+    color: #343a40 !important;
+    border: 2px solid #343a40 !important;
+    transform: scale(1.05);
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
 }

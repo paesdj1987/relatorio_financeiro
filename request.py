@@ -1,3 +1,4 @@
+#request.py
 import os
 import re
 import pandas as pd
@@ -7,7 +8,7 @@ import oracledb
 def fetch_data_from_oracle():
     try:
         # Caminho do Oracle Instant Client
-        instant_client_path = r"/usr/lib/oracle/instantclient"
+        instant_client_path = r"C:\Users\joaodanilo\Oracle\instantclient"
         if not os.path.exists(instant_client_path):
             raise FileNotFoundError(
                 f"Oracle Instant Client não encontrado: {instant_client_path}"
