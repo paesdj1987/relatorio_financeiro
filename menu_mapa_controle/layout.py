@@ -17,7 +17,7 @@ def create_layout():
     fluid=True,
     style={
         "background": "linear-gradient(135deg, #283E51 0%, #4B79A1 100%)",
-        "padding": "20px",
+        "padding": "18px",
         "borderBottom": "3px solid #FFA80B",
         "boxShadow": "0 4px 8px rgba(0, 0, 0, 0.1)",
         "borderBottomLeftRadius": "12px",
@@ -96,7 +96,7 @@ def create_layout():
     [
         # Primeira linha de filtros (SC, PC, NF, UO)
         dbc.Row(
-            style={"marginTop": "60px", "marginBottom": "30px"},
+            style={"marginTop": "70px", "marginBottom": "30px"},
             justify="center",
             children=[
                 dbc.Col(
@@ -258,12 +258,12 @@ def create_layout():
                             "background-color": "#FAA61A",
                             "color": "white",
                             "border": "none",
-                            "font-size": "16px",
+                            "font-size": "14px",
                             "font-weight": "bold",
-                            "padding": "12px 30px",
+                            "padding": "10px 26px",
                             "boxShadow": "0 4px 10px rgba(0,0,0,0.25)",
                             "transition": "all 0.3s ease-in-out",
-                            "marginTop": "40px",
+                            "marginTop": "30px",
                             "cursor": "pointer",
                         },
                     ),
@@ -278,12 +278,12 @@ def create_layout():
                             "border-radius": "25px",
                             "border": "none",
                             "color": "white",
-                            "font-size": "16px",
+                            "font-size": "14px",
                             "font-weight": "bold",
-                            "padding": "12px 30px",
+                            "padding": "10px 26px",
                             "boxShadow": "0 4px 10px rgba(0,0,0,0.25)",
                             "transition": "all 0.3s ease-in-out",
-                            "marginTop": "40px",
+                            "marginTop": "30px",
                             "cursor": "pointer",
                         },
                     ),
@@ -313,11 +313,13 @@ def create_layout():
                     ),
                 ],
                 style={
-                    "text-align": "right",
+                    "text-align": "left",       # Alinha o conteúdo à esquerda
                     "margin-bottom": "20px",
+                    "margin-left": "20px",       # Define a mesma margem que a tabela (por exemplo, 20px)
                     "display": "none",
                 }
             ),
+
 
             # Tabela (carregada dinamicamente)
             dcc.Loading(
@@ -338,7 +340,14 @@ def create_layout():
     # ----------------------------------------------------------------
     # Retornamos Header + Conteúdo
     # ----------------------------------------------------------------
-    return html.Div([
+    return html.Div(
+        [
         header,
         content
-    ])
+        ],
+        style={
+            "maxWidth": "2400px",   # Define uma largura máxima (ajuste conforme seu design)
+            "margin": "0 auto",      # Centraliza o container horizontalmente
+            "padding": "0 20px"      # Espaçamento interno para evitar que o conteúdo grude nas bordas
+        }
+    )

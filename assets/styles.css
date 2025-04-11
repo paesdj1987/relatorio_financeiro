@@ -62,3 +62,35 @@
     transform: scale(1.05);
     box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
 }
+
+
+.home-container {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    overflow: hidden;  /* importante para manter o overlay limitado */
+}
+
+.home-container::before {
+    content: "";
+    background-image: url("/assets/lumine.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.15; /* transparência aqui */
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 0;
+}
+
+.home-container > * {
+    position: relative;
+    z-index: 1;
+}

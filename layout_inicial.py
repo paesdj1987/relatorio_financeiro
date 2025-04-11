@@ -108,5 +108,6 @@ def create_home_layout():
             "justify-content": "center",
             "align-items": "center",
             "text-align": "center"
-        }
+        },
+        className="home-container"  # <--- adicionado aqui
     )

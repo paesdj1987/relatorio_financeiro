@@ -118,30 +118,57 @@ def register_callbacks(app):
                         dash_table.DataTable(
                             data=df.to_dict('records'),
                             columns=[{'name': col.replace('_', ' '), 'id': col} for col in df.columns],
-                            style_table={'overflowX': 'auto'},
+                            style_table={
+                                'overflowX': 'auto',
+                                'boxShadow': '0 2px 4px rgba(0,0,0,0.1)',
+                                'borderRadius': '6px',
+                                'margin': '16px'
+                            },
                             style_cell={
                                 'textAlign': 'center',
-                                'padding': '10px',
-                                'whiteSpace': 'normal',
-                                'fontSize': '12px',
+                                'padding': '12px',
+                                'fontSize': '11px',
+                                'fontFamily': 'Poppins, sans-serif',
+                                'border': '1px solid #ddd'
                             },
                             style_header={
-                                'backgroundColor': '#343a40',
-                                'color': 'white',
+                                'backgroundColor': '#2C3E50',
+                                'color': '#ecf0f1',
                                 'fontWeight': 'bold',
-                                'fontSize': '14px',
+                                'fontSize': '12px',
+                                'textTransform': 'uppercase',
+                                'border': '1px solid #ddd'
                             },
                             style_data={
                                 'backgroundColor': 'white',
-                                'color': '#343a40'
+                                'color': '#2C3E50',
+                                'border': '1px solid #ddd'
                             },
+                            style_data_conditional=[
+                                {
+                                    'if': {'row_index': 'odd'},
+                                    'backgroundColor': '#f9f9f9'
+                                },
+                                {
+                                    'if': {'state': 'active'},
+                                    'backgroundColor': '#f1f1f1',
+                                    'border': 'none'
+                                },
+                                {
+                                    'if': {'state': 'selected'},
+                                    'backgroundColor': '#dfe6e9',
+                                    'border': 'none'
+                                }
+                            ],
                             page_size=10,
                         )
-                    ])
-
+                    ],
+                    style={"marginLeft": "-20px", "marginRight": "30px"}
+                    )
                     export_style = {
-                        "text-align": "right",
+                        "text-align": "left",       # Alinha o ícone à esquerda
                         "margin-bottom": "10px",
+                        "margin-left": "30px",       # Alinha com a margem esquerda do container da tabela
                         "display": "block",
                     }
 
