@@ -42,7 +42,7 @@ def create_layout():
                                 className="h2 text-white mb-0",
                                 style={
                                     "fontWeight": "700",
-                                    "fontSize": "30px",
+                                    "fontSize": "35px",
                                     "margin": "0" 
                                 }
                             ),

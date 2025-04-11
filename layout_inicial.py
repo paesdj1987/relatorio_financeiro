@@ -9,7 +9,7 @@ def create_home_layout():
             html.Img(
                 src="/assets/logoor.png",
                 style={
-                    "width": "220px",  # Tamanho levemente maior para destaque
+                    "width": "200px",  # Tamanho levemente maior para destaque
                     "height": "auto",
                     "margin-bottom": "80px",
                     "opacity": "0",
@@ -21,7 +21,7 @@ def create_home_layout():
             html.H1(
                 "Relatórios PGI",
                 style={
-                    "color": "#343a40",
+                    "color": "#3d5462",
                     "fontSize": "44px",
                     "fontWeight": "bold",
                     "margin-bottom": "80px",
@@ -43,7 +43,7 @@ def create_home_layout():
                             "color": "white",
                             "border": "2px solid #3d5462",
                             "border-radius": "25px",
-                            "padding": "14px 32px",
+                            "padding": "12px 30px",
                             "margin": "20px", # Mais espaçamento entre botões
                             "font-size": "18px", # Fonte levemente maior
                             "font-weight": "bold",
@@ -61,7 +61,7 @@ def create_home_layout():
                             "color": "white",
                             "border": "2px solid #3d5462",
                             "border-radius": "25px",
-                            "padding": "14px 32px",
+                            "padding": "12px 30px",
                             "margin": "20px", # Mais espaçamento entre botões
                             "font-size": "18px", # Fonte levemente maior
                             "font-weight": "bold",
@@ -79,7 +79,7 @@ def create_home_layout():
                             "color": "white",
                             "border": "2px solid #3d5462",
                             "border-radius": "25px",
-                            "padding": "14px 32px",
+                            "padding": "12px 30px",
                             "margin": "20px", # Mais espaçamento entre botões
                             "font-size": "18px", # Fonte levemente maior
                             "font-weight": "bold",
@@ -109,5 +109,5 @@ def create_home_layout():
             "align-items": "center",
             "text-align": "center"
         },
-        className="home-container"  # <--- adicionado aqui
+        className="home-container"  
     )
