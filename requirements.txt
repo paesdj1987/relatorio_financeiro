@@ -8,3 +8,10 @@ dash-table
 dash-ag-grid
 sqlalchemy
 oracledb
+ldap3>=2.9
+python-dotenv
+# para rodar com docker no linux
+gunicorn>=21.2
+
+# para rodar fora do docker em Windows (opcional)
+waitress>=2.1

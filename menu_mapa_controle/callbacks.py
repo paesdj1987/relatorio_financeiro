@@ -5,14 +5,15 @@ from dash.dependencies import Input, Output, State
 from dash import dash_table, dcc, html, no_update
 import io
 
-def register_callbacks(app):
+def register_callbacks_mapa(app):
     global df_global
     df_global = None
 
     @app.callback(
         [
             Output("output-div", "children"),
-            Output("export-div", "style")
+            Output("export-div", "style"),
+            Output("df-cache", "data"),  
         ],
         [
             Input("consultar-button", "n_clicks"),
@@ -29,176 +30,99 @@ def register_callbacks(app):
         ],
         prevent_initial_call=True
     )
-    def update_output(n_clicks_consultar, n_clicks_limpar, 
-                      sc_filter, pc_filter, nf_filter, 
+    def update_output(n_consultar, n_limpar,
+                      sc_filter, pc_filter, nf_filter,
                       cod_obra_filter, insumo_filter,
                       fornecedor_filter, ua_codigo_filter):
-        global df_global
 
         ctx = dash.callback_context
         if not ctx.triggered:
-            return no_update, no_update
+            return no_update, no_update, no_update
 
-        button_id = ctx.triggered[0]['prop_id'].split('.')[0]
+        button_id = ctx.triggered[0]["prop_id"].split(".")[0]
 
-        if button_id == 'consultar-button':
-            try:
-                # Ler dados do arquivo CSV gerado pelo request.py
-                df = pd.read_csv(
-                    'shared_data/vw_financeiro_obra.csv',  # Caminho para a pasta shared_data
-                    encoding='utf-8',
-                    sep=';',
-                    quotechar='"',
-                    dtype=str,
-                    engine='python'
-                )
+        # ---------- LIMPAR ----------
+        if button_id == "limpar-button":
+            return "", {"display": "none"}, None
 
-                # Preencher valores NA com string vazia e converter todos para str
-                df = df.fillna('').astype(str)
+        # ---------- CONSULTAR ----------
+        try:
+            df = pd.read_csv(
+                "shared_data/vw_financeiro_obra.csv",
+                sep=";", encoding="utf-8", dtype=str, engine="python"
+            ).fillna("").astype(str)
 
+            # filtros (mesma lógica de antes) ────────────────────────
+            def apply_filter(df, col, terms):
+                if not terms:
+                    return df
+                terms = [t.strip().lower() for t in terms.split(";")]
+                return df[df[col].apply(lambda x: any(t in x.lower() for t in terms))]
 
-                # Filtro SC 
-                if sc_filter:
-                    sc_terms = [term.strip().lower() for term in sc_filter.split(';')]
-                    df = df[df["N_da_SC"].apply(
-                        lambda x: any(t in x.lower() for t in sc_terms)
-                    )]
+            df = apply_filter(df, "Num_da_SC",        sc_filter)
+            df = apply_filter(df, "Num_do_PC",        pc_filter)
+            df = apply_filter(df, "Num_da_NF",        nf_filter)
+            df = apply_filter(df, "Cod_Obra",         cod_obra_filter)
+            df = apply_filter(df, "Descricao_do_insumo", insumo_filter)
+            df = apply_filter(df, "Fornecedor",       fornecedor_filter)
+            df = apply_filter(df, "UA_Codigo",        ua_codigo_filter)
 
-                # Filtro PC 
-                if pc_filter:
-                    pc_terms = [term.strip().lower() for term in pc_filter.split(';')]
-                    df = df[df["N_do_PC"].apply(
-                        lambda x: any(t in x.lower() for t in pc_terms)
-                    )]
+            # monta componente ou msg “vazio”
+            if df.empty:
+                return html.Div("Nenhum resultado encontrado."), {"display": "none"}, None
 
-                # Filtro NF 
-                if nf_filter:
-                    nf_terms = [term.strip().lower() for term in nf_filter.split(';')]
-                    df = df[df["N_da_NF"].apply(
-                        lambda x: any(t in x.lower() for t in nf_terms)
-                    )]
+            table = html.Div(
+                dash_table.DataTable(
+                    data=df.to_dict("records"),
+                    columns=[{"name": c.replace("_", " "), "id": c} for c in df.columns],
+                    page_size=10,
+                    style_table={"overflowX": "auto", "margin": "16px"},
+                    style_cell={
+                        "textAlign": "center",
+                        "padding": "12px",
+                        "fontSize": "11px",
+                        "fontFamily": "Poppins, sans-serif",
+                        "border": "1px solid #ddd",
+                    },
+                    style_header={
+                        "backgroundColor": "#2C3E50",
+                        "color": "#ecf0f1",
+                        "fontWeight": "bold",
+                        "fontSize": "12px",
+                    },
+                ),
+                style={"marginLeft": "-20px", "marginRight": "30px"},
+            )
+            export_style = {
+                "display": "block",
+                "textAlign": "left",
+                "marginBottom": "10px",
+                "marginLeft": "30px",
+            }
 
-                # Filtro UO -> coluna "Cod_Obra" 
-                if cod_obra_filter:
-                    uo_terms = [term.strip().lower() for term in cod_obra_filter.split(';')]
-                    df = df[df["Cód_Obra"].apply(
-                        lambda x: any(t in x.lower() for t in uo_terms)
-                    )]
-                    
+            # serializa df para o Store (list-of-dicts)
+            return table, export_style, df.to_dict("records")
 
-                # Filtro Insumo -> coluna "Descrição_do_insumo"
-                if insumo_filter:
-                    insumo_terms = [term.strip().lower() for term in insumo_filter.split(';')]
-                    df = df[df["Descrição_do_insumo"].apply(
-                        lambda x: any(t in x.lower() for t in insumo_terms)
-                    )]
+        except Exception as e:
+            return f"Erro ao ler CSV: {e}", {"display": "none"}, None
 
-                # Filtro Fornecedor 
-                if fornecedor_filter:
-                    fornecedor_terms = [term.strip().lower() for term in fornecedor_filter.split(';')]
-                    df = df[df["Fornecedor"].apply(
-                        lambda x: any(t in x.lower() for t in fornecedor_terms)
-                    )]
-
-                # Filtro UA -> coluna "UA_Código"
-                if ua_codigo_filter:
-                    ua_terms = [term.strip().lower() for term in ua_codigo_filter.split(';')]
-                    df = df[df["UA_Código"].apply(
-                        lambda x: any(t in x.lower() for t in ua_terms)
-                    )]
-                
-                df_global = df
-
-                # Construir a tabela ou mensagem de vazio
-                if df.empty:
-                    table = html.Div("Nenhum resultado encontrado.")
-                    export_style = {"display": "none"}
-                else:
-                    table = html.Div([
-                        dash_table.DataTable(
-                            data=df.to_dict('records'),
-                            columns=[{'name': col.replace('_', ' '), 'id': col} for col in df.columns],
-                            style_table={
-                                'overflowX': 'auto',
-                                'boxShadow': '0 2px 4px rgba(0,0,0,0.1)',
-                                'borderRadius': '6px',
-                                'margin': '16px'
-                            },
-                            style_cell={
-                                'textAlign': 'center',
-                                'padding': '12px',
-                                'fontSize': '11px',
-                                'fontFamily': 'Poppins, sans-serif',
-                                'border': '1px solid #ddd'
-                            },
-                            style_header={
-                                'backgroundColor': '#2C3E50',
-                                'color': '#ecf0f1',
-                                'fontWeight': 'bold',
-                                'fontSize': '12px',
-                                'textTransform': 'uppercase',
-                                'border': '1px solid #ddd'
-                            },
-                            style_data={
-                                'backgroundColor': 'white',
-                                'color': '#2C3E50',
-                                'border': '1px solid #ddd'
-                            },
-                            style_data_conditional=[
-                                {
-                                    'if': {'row_index': 'odd'},
-                                    'backgroundColor': '#f9f9f9'
-                                },
-                                {
-                                    'if': {'state': 'active'},
-                                    'backgroundColor': '#f1f1f1',
-                                    'border': 'none'
-                                },
-                                {
-                                    'if': {'state': 'selected'},
-                                    'backgroundColor': '#dfe6e9',
-                                    'border': 'none'
-                                }
-                            ],
-                            page_size=10,
-                        )
-                    ],
-                    style={"marginLeft": "-20px", "marginRight": "30px"}
-                    )
-                    export_style = {
-                        "text-align": "left",       # Alinha o ícone à esquerda
-                        "margin-bottom": "10px",
-                        "margin-left": "30px",       # Alinha com a margem esquerda do container da tabela
-                        "display": "block",
-                    }
-
-                return table, export_style
-
-            except Exception as e:
-                return f"Erro ao ler os dados do CSV: {e}", {"display": "none"}
-
-        elif button_id == 'limpar-button':
-            return "", {"display": "none"}
-
-        return no_update, no_update
-
+    # ───────────────────────────────────────────────────────────────
+    # 2) Callback download Excel — lê dados do Store
+    # ───────────────────────────────────────────────────────────────
     @app.callback(
         Output("download-dataframe-xlsx", "data"),
-        [Input("download-excel-icon", "n_clicks")],
+        Input("download-excel-icon", "n_clicks"),
+        State("df-cache", "data"),
         prevent_initial_call=True,
     )
-    def download_excel(n_clicks):
-        global df_global
-        if df_global is not None and not df_global.empty:
-            # Converter o DataFrame para um arquivo Excel em memória
-            buffer = io.BytesIO()
-            with pd.ExcelWriter(buffer, engine='xlsxwriter') as writer:
-                df_global.to_excel(writer, index=False)
-                buffer.seek(0)
-
-            return dcc.send_bytes(
-                buffer.getvalue(),
-                filename="dados_financeiro_obra.xlsx"
-            )
-        else:
+    def download_excel(n_clicks, data):
+        if not data:
             return dash.no_update
+
+        df = pd.DataFrame(data)
+        buffer = io.BytesIO()
+        with pd.ExcelWriter(buffer, engine="xlsxwriter") as writer:
+            df.to_excel(writer, index=False)
+            buffer.seek(0)
+
+        return dcc.send_bytes(buffer.getvalue(), filename="dados_financeiro_obra.xlsx")

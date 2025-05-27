@@ -1,16 +1,15 @@
-# menu_analise_contrato/layout.py
+# menu_saldo_contrato/layout.py
 from dash import html, dcc
 import dash_bootstrap_components as dbc
 
 
 def create_layout():
     """
-    Retorna o layout principal do módulo Análise de Contrato,
+    Retorna o layout principal do módulo Saldo Contrato,
     contendo inicialmente apenas o cabeçalho moderno com largura ajustada.
     """
 
-    # 1. Cabeçalho Moderno e Profissional
-
+    # 1. Cabeçalho 
     header = dbc.Container(
         fluid=True,
         style={
@@ -36,7 +35,7 @@ def create_layout():
                                     style={"marginRight": "15px"}
                                 ),
                                 html.H1(
-                                    "Análise de Contrato",
+                                    "Saldo Contrato",
                                     className="h2 text-white mb-0",
                                     style={
                                         "fontWeight": "700",
@@ -65,7 +64,7 @@ def create_layout():
                                             "position": "relative",
                                             "top": "-10px",           
                                             "left": "-8px",
-                                            "marginBottom": "12px"   
+                                            "marginBottom": "12px"  
                                         }
                                     ),
                                     href="/logout",     
@@ -130,15 +129,12 @@ def create_layout():
         }
     )
 
-    # Retorna o cabeçalho dentro de um container 
     return html.Div(
         [header, aviso],
         id="page-content",
         style={
-            "maxWidth": "2400px",   
-            "margin": "0 auto",     
-            "padding": "0 20px"     
+            "maxWidth": "2400px",
+            "margin": "0 auto",
+            "padding": "0 20px"
         }
     )
-
-

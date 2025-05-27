@@ -42,58 +42,45 @@ def fetch_data_from_oracle():
 
         # 1) Ajuste manual dos nomes para manter consistência com callbacks
         df.rename(columns={
-            # SC
-            "N_da_SC": "N_da_SC",
-
-            # UO: Cd_Obra => agora "Cód_Obra"
-            "Cd_Obra": "Cód_Obra",
-
-            # Insumo
-            "Cd_insumo": "Cód_insumo",
-            "Descrio_do_insumo": "Descrição_do_insumo",
-
-            # Quantidade
-            "Qt_solicitada": "Qt_solicitada",
-            "Quant_entregue": "Quant_entregue",
-            "Saldo": "Saldo",
-
-            # Datas
+            "Num_da_SC": "Num_da_SC",
+            "Cod_Obra": "Cod_Obra",
+            "Cod_Insumo": "Cod_Insumo",
+            "Descricao_do_Insumo": "Descricao_do_Insumo",
             "Data_da_SC": "Data_da_SC",
-            "Data_SC_chegada_obra": "Data_SC_chegada_a_obra",
-            "Data_aprovao_da_NT": "Data_aprovação_da_NT",
-            "Data_emisso_do_PC": "Data_emissão_do_PC",
-            "Previso_de_entrega": "Previsão_de_entrega",
+            "Data_da_SC_Chegada_a_Obra": "Data_da_SC_Chegada_a_Obra",
+            "Num_do_PC": "Num_do_PC",
+            "Data_Aprovacao_da_NT": "Data_Aprovacao_da_NT",
+            "Data_Emissao_do_PC": "Data_Emissao_do_PC",
+            "Previsao_de_Entrega": "Previsao_de_Entrega",
             "Data_da_NF": "Data_da_NF",
-            "Data_entrada_na_obra": "Data_entrada_na_obra",
-            "Data_vencimento": "Data_vencimento",
-
-            # PC e NF
-            "N_do_PC": "N_do_PC",
-            "N_da_NF": "N_da_NF",
+            "Num_da_NF": "Num_da_NF",
+            "Data_Entrada_na_Obra": "Data_Entrada_na_Obra",
+            "Data_Vencimento": "Data_Vencimento",
             "Status_da_NF": "Status_da_NF",
-
-            # Valor
-            "Valor_Unitrio": "Valor_Unitário",
-
-            # Fornecedor
-            "Fornecedor__CNPJ": "Fornecedor__CNPJ",
+            "Fornecedor_CNPJ": "Fornecedor_CNPJ",
             "Fornecedor": "Fornecedor",
-
-            # UA => UA__Cdigo => agora "UA_Código"
-            "UA__Cdigo": "UA_Código",
-            "UA__Descrio": "UA_Descrição",
+            "UA_Codigo": "UA_Codigo",
+            "UA_Descricao": "UA_Descricao",
+            "Valor_Unitario": "Valor_Unitario",
+            "Qtd_Solicitada": "Qtd_Solicitada",
+            "Valor_Total": "Valor_Total",
+            "Qtd_Entregue": "Qtd_Entregue",
+            "Saldo": "Saldo",
+            "Qtd_Solicitada_Anterior": "Qtd_Solicitada_Anterior",
+            "Valor_Unitario_Anterior": "Valor_Unitario_Anterior",
+            "Valor_Total_Anterior": "Valor_Total_Anterior"
         }, inplace=True)
 
         # 2) Formatar colunas de data após renomear
         date_columns = [
             "Data_da_SC", 
-            "Data_SC_chegada_a_obra", 
-            "Data_aprovação_da_NT",
-            "Data_emissão_do_PC", 
+            "Data_da_SC_Chegada_a_Obra", 
+            "Data_Aprovacao_da_NT",
+            "Data_Emissao_do_PC", 
             "Previsão_de_entrega", 
             "Data_da_NF",
-            "Data_entrada_na_obra", 
-            "Data_vencimento"
+            "Data_Entrada_na_Obra", 
+            "Data_Vencimento"
         ]
         for col in date_columns:
             if col in df.columns:

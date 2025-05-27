@@ -9,10 +9,11 @@ def create_layout():
       1. Cabeçalho moderno (header)
       2. Seção de conteúdo (pesquisa, botões, tabela etc.)
     """
-
+    cache = dcc.Store(id="df-cache", storage_type="memory")
+    
     # ----------------------------------------------------------------
     # 1. Cabeçalho Moderno e Profissional (adaptado)
-    # ----------------------------------------------------------------
+
     header = dbc.Container(
     fluid=True,
     style={
@@ -34,8 +35,8 @@ def create_layout():
                         [
                             html.Img(
                                 src="/assets/logoOR2.png",
-                                height="60px",   # Ajuste a altura da imagem conforme necessário
-                                style={"marginRight": "15px"}  # Espaço entre logo e título
+                                height="60px",   
+                                style={"marginRight": "15px"}  
                             ),
                             html.H1(
                                 "Mapa de Controle",
@@ -52,46 +53,70 @@ def create_layout():
                     width="auto"
                 ),
 
-                # Coluna da DIREITA: Botões de Navegação
-                dbc.Col(
-                    html.Div(
-                        [
-                            dcc.Link(
-                                dbc.Button("Home", color="light", outline=True, className="me-2 nav-button", style={"fontSize": "14px"}),
-                                href="/",
-                                refresh=False
-                            ),
-                            dcc.Link(
-                                dbc.Button("Mapa de Controle", color="light", outline=True, className="me-2 nav-button", style={"fontSize": "14px"}),
-                                href="/mapa-controle",
-                                refresh=False
-                            ),
-                            dcc.Link(
-                                dbc.Button("Análise de Contrato", color="light", outline=True, className="me-2 nav-button", style={"fontSize": "14px"}),
-                                href="/analise-contrato",
-                                refresh=False
-                            ),
-                            dcc.Link(
-                                dbc.Button("Saldo de Contrato", color="light", outline=True, className="me-2 nav-button", style={"fontSize": "14px"}),
-                                href="/saldo-contrato",
-                                refresh=False
-                            ),
-                        ],
-                        className="d-flex justify-content-end align-items-center",
-                        style={"marginTop": "40px"} 
-                    ),
-                    width="auto"
-                )
+                # Coluna da DIREITA  ─ Logout (em cima) + Navegação (embaixo)
+                    dbc.Col(
+                        html.Div(
+                            [
+                                # ─── 1. Botão / imagem de Logout ───
+                                dcc.Link(
+                                    html.Img(
+                                        src="/assets/logout.png",    
+                                        height="26px",
+                                        title="Sair da Aplicação",
+                                        style={
+                                            "cursor": "pointer",
+                                            "position": "relative",
+                                            "top": "-10px",           
+                                            "left": "-8px",
+                                            "marginBottom": "12px"   
+                                        }
+                                    ),
+                                    href="/logout",     
+                                    refresh=True
+                                ),
+
+                                # ─── 2. Bloco de links de navegação ───
+                                html.Div(
+                                    [
+                                        dcc.Link(
+                                            dbc.Button("Home", color="light", outline=True,
+                                                       className="me-2 nav-button", style={"fontSize": "14px"}),
+                                            href="/", refresh=False
+                                        ),
+                                        dcc.Link(
+                                            dbc.Button("Mapa de Controle", color="light", outline=True,
+                                                       className="me-2 nav-button", style={"fontSize": "14px"}),
+                                            href="/mapa-controle", refresh=False
+                                        ),
+                                        dcc.Link(
+                                            dbc.Button("Análise de Contrato", color="light", outline=True,
+                                                       className="me-2 nav-button", style={"fontSize": "14px"}),
+                                            href="/analise-contrato", refresh=False
+                                        ),
+                                        dcc.Link(
+                                            dbc.Button("Saldo Contrato", color="light", outline=True,
+                                                       className="me-2 nav-button", style={"fontSize": "14px"}),
+                                            href="/saldo-contrato", refresh=False
+                                        ),
+                                    ],
+                                    className="d-flex justify-content-end align-items-center"
+                                ),
+                            ],
+                            # Coluna vira “empilhada”: logout em cima, links embaixo
+                            className="d-flex flex-column align-items-end",
+                            style={"marginTop": "20px"}
+                        ),
+                        width="auto"
+                    )
 
             ]
         )
     ]
 )
 
-
     # ----------------------------------------------------------------
     # 2. Conteúdo Específico do Mapa de Controle
-    # ----------------------------------------------------------------
+
     content = html.Div(
     [
         # Primeira linha de filtros (SC, PC, NF, UO)
@@ -116,7 +141,7 @@ def create_layout():
                             'transition': 'all 0.3s ease-in-out',
                         }
                     ),
-                    xs=12, sm=6, md=3, lg=2  # Ajuste o tamanho das colunas
+                    xs=12, sm=6, md=3, lg=2  
                 ),
                 dbc.Col(
                     dcc.Input(
@@ -292,7 +317,7 @@ def create_layout():
             ]
         ),
 
-        html.Div(style={"height": "40px"}),  # Espaço extra antes da tabela, se quiser
+        html.Div(style={"height": "40px"}),  
 
             # Ícone de exportação
             html.Div(
@@ -313,13 +338,12 @@ def create_layout():
                     ),
                 ],
                 style={
-                    "text-align": "left",       # Alinha o conteúdo à esquerda
+                    "text-align": "left",       
                     "margin-bottom": "20px",
-                    "margin-left": "20px",       # Define a mesma margem que a tabela (por exemplo, 20px)
+                    "margin-left": "20px",       
                     "display": "none",
                 }
             ),
-
 
             # Tabela (carregada dinamicamente)
             dcc.Loading(
@@ -339,15 +363,16 @@ def create_layout():
 
     # ----------------------------------------------------------------
     # Retornamos Header + Conteúdo
-    # ----------------------------------------------------------------
+
     return html.Div(
         [
         header,
-        content
+        cache,
+        content,
         ],
         style={
-            "maxWidth": "2400px",   # Define uma largura máxima (ajuste conforme seu design)
-            "margin": "0 auto",      # Centraliza o container horizontalmente
-            "padding": "0 20px"      # Espaçamento interno para evitar que o conteúdo grude nas bordas
+            "maxWidth": "2400px",   
+            "margin": "0 auto",      
+            "padding": "0 20px"      
         }
     )

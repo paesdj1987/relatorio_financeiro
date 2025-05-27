@@ -1,42 +1,33 @@
 /* =============================
-   ESTILOS GERAIS 
+   VARIÁVEIS (cores, fontes, etc.)
    ============================= */
+:root {
+    --primary-color: #3d5462;
+    --secondary-color: #6c757d;
+    --accent-color: #FAA80A;
+    --bg-color: #f5f7fa;
+    --font-family: 'Poppins', sans-serif;
+    --transition-speed: 0.3s;
+}
 
-   body {
+/* =============================
+   RESET E GERAIS
+   ============================= */
+* {
     margin: 0;
     padding: 0;
-    font-family: 'Poppins', sans-serif;
-    background-color: #f5f7fa;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--bg-color);
+    color: #333;
 }
 
 /* =============================
-   EFEITOS NOS BOTÕES 
+   ANIMAÇÕES
    ============================= */
-
-#consultar-button:hover {
-    background-color: #e89d18; /* Tom mais escuro */
-    transform: scale(1.05);
-    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
-}
-
-#limpar-button:hover {
-    background-color: #3d5260; /* Tom mais escuro */
-    transform: scale(1.05);
-    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
-}
-
-.nav-button:hover {
-    background-color: white !important;
-    color: #35546F !important;
-    border-color: #35546F !important;
-}
-
-
-/* =============================
-   ESTILOS PARA LAYOUT INICIAL
-   ============================= */
-
-/* Animação de fade-in */
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -48,16 +39,45 @@
     }
 }
 
-/* Efeito hover para botões da home */
+/* =============================
+   EFEITOS DE HOVER NOS BOTÕES
+   ============================= */
+.btn-home,
+#consultar-button,
+#limpar-button {
+    transition: all var(--transition-speed) ease-in-out;
+    cursor: pointer;
+}
+
+#consultar-button:hover {
+    background-color: #e89d18;
+    transform: scale(1.05);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
+}
+
+#limpar-button:hover {
+    background-color: #3d5260;
+    transform: scale(1.05);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
+}
+
+.nav-button:hover {
+    background-color: #fff !important;
+    color: #35546F !important;
+    border-color: #35546F !important;
+}
+
 .btn-home:hover {
-    background-color: white !important;
+    background-color: #fff !important;
     color: #343a40 !important;
     border: 2px solid #343a40 !important;
     transform: scale(1.05);
-    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 
-
+/* =============================
+   LAYOUT INICIAL (Home Container)
+   ============================= */
 .home-container {
     position: relative;
     min-height: 100vh;
@@ -66,25 +86,94 @@
     justify-content: center;
     align-items: center;
     text-align: center;
-    overflow: hidden;  /* importante para manter o overlay limitado */
+    overflow: hidden;
 }
 
 .home-container::before {
     content: "";
-    background-image: url("/assets/lumine.jpg");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    opacity: 0.15; /* transparência aqui */
     position: absolute;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
+    background: url("/assets/lumine.jpg") center/cover no-repeat;
+    opacity: 0.25;
     z-index: 0;
 }
 
 .home-container > * {
     position: relative;
     z-index: 1;
+}
+
+.login-message {
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+/* Reduz o tamanho do spinner do Loading#loading-login */
+#loading-login .dash-spinner {
+  width: 2.5rem !important;
+  height: 2.5rem !important;
+}
+
+/* =============================
+   RESPONSIVIDADE (Notebooks e Tablets)
+   ============================= */
+@media (max-width: 1024px) {
+    .home-logo {
+        width: 150px !important;
+    }
+
+    .home-title {
+        font-size: 32px !important;
+    }
+
+    .login-card {
+        width: 90% !important;
+        margin-top: 20px !important;
+    }
+
+    .btn-home {
+        padding: 10px 20px !important;
+        font-size: 16px !important;
+        margin: 10px !important;
+    }
+}
+
+/* =========================================================================
+   LOGIN SPINNER — overlay dual-ring moderno
+   ====================================================================== */
+
+/* Quando o dcc.Loading está ativo ele adiciona data-dash-is-loading="true" */
+#loading-login[data-dash-is-loading="true"] {
+    position: absolute !important;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.65);
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 5;          /* fica acima do conteúdo do card */
+}
+
+/* Esconde o spinner padrão para usar o nosso */
+#loading-login[data-dash-is-loading="true"] .dash-spinner {
+    display: none;
+}
+
+/* Cria o dual-ring animado */
+#loading-login[data-dash-is-loading="true"]::after {
+    content: "";
+    width: 54px;
+    height: 54px;
+    border: 4px solid transparent;
+    border-top-color: var(--accent-color, #FAA80A);   /* laranja */
+    border-left-color: var(--primary-color, #3d5462); /* azul-petróleo */
+    border-radius: 50%;
+    animation: spin 0.9s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
 }

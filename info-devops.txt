@@ -1,0 +1,10 @@
+📌 Lembrete futuro: rodar no Docker com Gunicorn
+Quando decidir containerizar de novo, volte a estes passos:
+
+Mantenha server = app.server no app.py.
+
+Adicione gunicorn ao requirements.txt.
+
+No Dockerfile, troque o CMD para
+
+gunicorn app:server --workers 4 --threads 2 --bind 0.0.0.0:8052

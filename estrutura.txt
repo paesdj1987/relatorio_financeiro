@@ -1,5 +1,10 @@
 .
 ├── app.py               # Arquivo principal para executar o aplicativo
+├── layout_inicial.py     # Definição do layout inicial do aplicativo
+├── request.py           # conexão com banco de dados
+├── request_analise_contrato.py           # conexão com banco de dados
+├── request_saldo_contrato.py           # conexão com banco de dados
+├
 ├── menu_mapa_controle
 |   └── callbacks.py         # Funções de callback e lógica de interação
 |   └── layout.py            # Definição do layout principal do aplicativo
@@ -12,13 +17,11 @@
 |   └── callbacks.py         # Funções de callback e lógica de interação
 |   └── layout.py            # Definição do layout principal do aplicativo
 |   └── __init__.py
-├── sidebar.py           # Sidebar com menus e opções
-|   layout_inicial.py     # Definição do layout inicial do aplicativo
-├── request.py           # conexão com banco de dados
-├── request_analise_contrato.py           # conexão com banco de dados
-├── request_saldo_contrato.py           # conexão com banco de dados
 ├── assets               # Pasta para arquivos de imagem
 │   └── logo.png
+│   └── logoor.png
+│   └── logoOR2.png
+│   └── lumine.jpg
 |   └── excel.png
 |   └── styles.css
 ├── shared_data

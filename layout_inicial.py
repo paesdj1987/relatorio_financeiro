@@ -1,113 +1,190 @@
 # layout_inicial.py
-import dash_bootstrap_components as dbc
-from dash import html
 
-def create_home_layout():
-    return html.Div(
+import dash_bootstrap_components as dbc
+from dash import html, dcc
+
+def create_home_layout(authorized: bool = False):
+    """
+    Cria o layout de /home.
+
+    Parâmetro
+    ---------
+    authorized : bool
+        • False  ➜ botões travados, alerta oculto
+        • True   ➜ botões livres, alerta “Acesso autorizado” exibido no card
+    """
+
+    # 1. Mensagem dentro do Alert
+    msg_children = ""
+    if authorized:
+        msg_children = "Acesso autorizado"
+
+    # 2. Cabeçalho (logo + título)
+    header_group = html.Div(
         [
-            # Logo animada ao carregar
             html.Img(
                 src="/assets/logoor.png",
                 style={
-                    "width": "200px",  # Tamanho levemente maior para destaque
+                    "width": "170px",
                     "height": "auto",
-                    "margin-bottom": "80px",
                     "opacity": "0",
-                    "animation": "fadeIn 1.2s ease-in-out forwards"
-                }
+                    "animation": "fadeIn 1.2s ease-in-out forwards",
+                    "marginBottom": "20px",
+                },
             ),
-
-            # Título estilizado
             html.H1(
                 "Relatórios PGI",
                 style={
                     "color": "#3d5462",
-                    "fontSize": "44px",
+                    "fontSize": "30px",
                     "fontWeight": "bold",
-                    "margin-bottom": "80px",
-                    "letter-spacing": "1.5px",
-                    "text-transform": "uppercase",
+                    "letterSpacing": "1.5px",
+                    "textTransform": "uppercase",
                     "opacity": "0",
-                    "animation": "fadeIn 1.2s ease-in-out 0.3s forwards"
-                }
+                    "animation": "fadeIn 1.2s ease-in-out 0.3s forwards",
+                },
             ),
-
-            # Container de botões
-            html.Div(
-                [
-                    dbc.Button(
-                        "Mapa de Controle",
-                        href="/mapa-controle",
-                        style={
-                            "background-color": "#3d5462",
-                            "color": "white",
-                            "border": "2px solid #3d5462",
-                            "border-radius": "25px",
-                            "padding": "12px 30px",
-                            "margin": "20px", # Mais espaçamento entre botões
-                            "font-size": "18px", # Fonte levemente maior
-                            "font-weight": "bold",
-                            "transition": "all 0.3s ease-in-out",
-                            "cursor": "pointer",
-                            "box-shadow": "0px 4px 10px rgba(0, 0, 0, 0.2)",
-                        },
-                        className="btn-home"
-                    ),
-                    dbc.Button(
-                        "Análise de Contrato",
-                        href="/analise-contrato",
-                        style={
-                            "background-color": "#3d5462",
-                            "color": "white",
-                            "border": "2px solid #3d5462",
-                            "border-radius": "25px",
-                            "padding": "12px 30px",
-                            "margin": "20px", # Mais espaçamento entre botões
-                            "font-size": "18px", # Fonte levemente maior
-                            "font-weight": "bold",
-                            "transition": "all 0.3s ease-in-out",
-                            "cursor": "pointer",
-                            "box-shadow": "0px 4px 10px rgba(0, 0, 0, 0.2)",
-                        },
-                        className="btn-home"
-                    ),
-                    dbc.Button(
-                        "Saldo de Contrato",
-                        href="/saldo-contrato",
-                        style={
-                            "background-color": "#3d5462",
-                            "color": "white",
-                            "border": "2px solid #3d5462",
-                            "border-radius": "25px",
-                            "padding": "12px 30px",
-                            "margin": "20px", # Mais espaçamento entre botões
-                            "font-size": "18px", # Fonte levemente maior
-                            "font-weight": "bold",
-                            "transition": "all 0.3s ease-in-out",
-                            "cursor": "pointer",
-                            "box-shadow": "0px 4px 10px rgba(0, 0, 0, 0.2)",
-                        },
-                        className="btn-home"
-                    ),
-                ],
-                style={
-                    "display": "flex",
-                    "justify-content": "center",
-                    "align-items": "center",
-                    "flex-wrap": "wrap",
-                    "opacity": "0",
-                    "animation": "fadeIn 1.2s ease-in-out 0.6s forwards"
-                }
-            )
         ],
         style={
-            "background-color": "white",
-            "min-height": "100vh",
             "display": "flex",
-            "flex-direction": "column",
-            "justify-content": "center",
-            "align-items": "center",
-            "text-align": "center"
+            "flexDirection": "column",
+            "alignItems": "center",
+            "transform": "translateY(-40px)",
+            "marginTop": "10px",
         },
-        className="home-container"  
+        className="header-group",
+    )
+
+    # 3. Card de login + spinner + alerta
+    login_body = dbc.CardBody(
+        [
+            dbc.Label(html_for="input-user", style={"fontWeight": "500", "marginBottom": "1px"}),
+            dbc.Input(
+                id="input-user",
+                placeholder="Digite seu usuário",
+                style={"borderColor": "#3d5462", "borderWidth": "1px", "borderRadius": "6px", "marginTop": "1px"},
+            ),
+            dbc.Label(html_for="input-senha", style={"fontWeight": "500", "marginTop": "10px"}),
+            dbc.Input(
+                id="input-senha",
+                type="password",
+                placeholder="Digite sua senha",
+                style={"borderColor": "#3d5462", "borderWidth": "1px", "borderRadius": "6px"},
+            ),
+            dbc.Button(
+                "Acessar",
+                id="login-button",
+                n_clicks=0,
+                style={
+                    "backgroundColor": "#3d5462",
+                    "borderColor": "#3d5462",
+                    "color": "white",
+                    "width": "100%",
+                    "marginTop": "20px",
+                    "borderRadius": "6px",
+                    "boxShadow": "0 4px 8px rgba(0,0,0,0.1)",
+                },
+            ),
+            dbc.Alert(
+                "",
+                id="login-message",
+                color="success",
+                is_open=False,
+                duration=15000,
+                style={
+                    "marginTop": "12px",
+                    "fontSize": "0.875rem",       
+                    "padding": "6px 12px",        
+                    "width": "80%",               
+                    "marginLeft": "auto",
+                    "marginRight": "auto",
+                },
+            ),
+        ],
+        style={
+            "paddingTop": "4px",     
+            "paddingBottom": "12px",
+            "paddingLeft": "12px",
+            "paddingRight": "12px",
+        },
+    )
+
+    login_card = dbc.Card(
+        dcc.Loading(
+            id="loading-login",
+            type="circle",
+            color="#FAA80A",
+            children=login_body,
+        ),
+        style={
+            "width": "320px",
+            "maxWidth": "90%",
+            "border": "1px solid #3d5462",
+            "borderRadius": "12px",
+            "boxShadow": "0 8px 16px rgba(0,0,0,0.2)",
+            "marginTop": "5px",
+            "transform": "translateY(-30px)",
+            "position": "relative",  
+        },
+        className="login-card",
+    )
+
+    # 4. Botões de navegação
+    def nav_button(label, href):
+        base_style = {
+            "backgroundColor": "#3d5462",
+            "color": "white",
+            "border": "2px solid #3d5462",
+            "borderRadius": "25px",
+            "padding": "10px 26px",
+            "marginTop": "20px",
+            "marginBottom": "20px",
+            "marginLeft": "30px",
+            "marginRight": "30px",
+            "fontSize": "16px",
+            "fontWeight": "bold",
+            "transition": "all 0.3s ease-in-out",
+            "cursor": "pointer",
+            "boxShadow": "0 4px 10px rgba(0, 0, 0, 0.2)",
+        }
+        if authorized:
+            return dbc.Button(label, href=href, style=base_style, className="btn-home")
+        return dbc.Button(
+            label,
+            disabled=True,
+            style={**base_style, "opacity": 0.5, "cursor": "not-allowed"},
+            className="btn-home",
+        )
+
+    buttons_container = html.Div(
+        [
+            nav_button("Mapa de Controle", "/mapa-controle"),
+            nav_button("Análise de Contrato", "/analise-contrato"),
+            nav_button("Saldo de Contrato", "/saldo-contrato"),
+        ],
+        style={
+            "display": "flex",
+            "justifyContent": "center",
+            "alignItems": "center",
+            "flexWrap": "wrap",
+            "opacity": "0",
+            "marginTop": "-15px",
+            "animation": "fadeIn 1.2s ease-in-out 0.6s forwards",
+        },
+        className="buttons-container",
+    )
+
+    # 5. Página completa
+    return html.Div(
+        [header_group, login_card, buttons_container],
+        style={
+            "backgroundColor": "white",
+            "minHeight": "100vh",
+            "display": "flex",
+            "flexDirection": "column",
+            "justifyContent": "center",
+            "alignItems": "center",
+            "textAlign": "center",
+        },
+        className="home-container",
     )
