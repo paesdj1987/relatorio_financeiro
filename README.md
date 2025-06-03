@@ -1,6 +1,6 @@
 # Relatórios de Sistema Financeiro
 
-Dashboard profissional desenvolvido em Python com Dash, voltado à gestão e análise de dados financeiros extraídos de um ERP corporativo. A aplicação permite filtragem avançada, visualização tabular e exportação para Excel com base nos dados da view `vw_financeiro_obra`.
+Dashboard profissional desenvolvido em Python com Dash, voltado à gestão e análise de dados financeiros extraídos de um Sistema Corporativo. A aplicação permite filtragem avançada, visualização tabular e exportação para Excel com base nos dados da view `vw_financeiro_obra`.
 
 ---
 
@@ -34,13 +34,13 @@ Dashboard profissional desenvolvido em Python com Dash, voltado à gestão e an�
 
 Cada campo de pesquisa na tela do *Mapa de Controle* permite ao usuário refinar os dados com precisão. Abaixo, seguem as siglas utilizadas:
 
-- 🔎 **SC** — *Solicitação de Compra*: permite pesquisar as solicitações de materiais feitas para as obras.
-- 🔎 **PC** — *Pedido de Compra*: pesquisa os pedidos formalizados a fornecedores.
-- 🔎 **NF** — *Nota Fiscal*: busca por documentos fiscais relacionados às entregas.
-- 🏗️ **UO** — *Unidade Organizacional*: cada unidade representa um empreendimento da empresa.
-- 🧱 **Insumo** — permite filtrar por tipo de material solicitado ou adquirido.
-- 🧾 **Fornecedor** — busca pelos parceiros comerciais que forneceram os produtos ou serviços.
-- 💼 **UA** — *Unidade Analítica*: refere-se ao centro de custo ou unidade contábil utilizada internamente.
+- 🔎 **Pesquisar por SC** — *Solicitação de Compra*: permite pesquisar as solicitações de materiais feitas para as obras.
+- 🔎 **Pesquisar por PC** — *Pedido de Compra*: pesquisa os pedidos formalizados a fornecedores.
+- 🔎 **Pesquisar por NF** — *Nota Fiscal*: busca por documentos fiscais relacionados às entregas.
+- 🏗️ **Pesquisar por UO** — *Unidade Organizacional*: cada unidade representa um empreendimento da empresa.
+- 🧱 **Pesquisar por Insumo** — permite filtrar por tipo de material solicitado ou adquirido.
+- 🧾 **Pesquisar por Fornecedor** — busca pelos parceiros comerciais que forneceram os produtos ou serviços.
+- 💼 **Pesquisar por UA** — *Unidade Analítica*: refere-se ao centro de custo ou unidade contábil utilizada internamente.
 
 Esses filtros foram desenvolvidos para proporcionar **flexibilidade e agilidade** na análise dos dados financeiros da operação.
 
@@ -48,19 +48,25 @@ Esses filtros foram desenvolvidos para proporcionar **flexibilidade e agilidade*
 
 ## 🗂️ Estrutura do Projeto
 
+```text
+📦 vw_financeiro_obra
 ├── app.py
 ├── layout_inicial.py
+├── callbacks_inicial.py
 ├── request.py
+├── ldap_auth.py
 ├── menu_mapa_controle/
-│ ├── layout.py
-│ └── callbacks.py
+│   ├── layout.py
+│   └── callbacks.py
 ├── assets/
-│ ├── styles.css
-│ └── images/
-│ ├── img_1.png
-│ └── img_2.png
+│   ├── styles.css
+│   ├── -- outros arquivos (logo, imagem) png
+│   └── images/
+│       ├── img_1.png
+│       └── img_2.png
 ├── shared_data/
-│ └── vw_financeiro_obra.csv
+│   ├── vw_financeiro_obra.csv
+│   └── log_historico_acesso.csv
 
 ---
 
