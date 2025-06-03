@@ -68,6 +68,7 @@ Esses filtros foram desenvolvidos para proporcionar **flexibilidade e agilidade*
 │   ├── vw_financeiro_obra.csv
 │   └── log_historico_acesso.csv
 
+
 ⚙️ Tecnologias Utilizadas
 A aplicação foi desenvolvida com Python e conta com as seguintes bibliotecas:
 
@@ -80,31 +81,31 @@ A aplicação foi desenvolvida com Python e conta com as seguintes bibliotecas:
 📤 XlsxWriter — Exportação de planilhas Excel com formatação
 ⚙️ python-dotenv — Gerenciamento de variáveis de ambiente com .env
 
+
 🏁 Como Executar Localmente
 Siga os passos abaixo para rodar o projeto em ambiente local:
 
 1. Clone o repositório
 
---- git clone https://github.com/paesdj1987/vw_financeiro_obra.git
---- cd vw_financeiro_obra
+- git clone https://github.com/paesdj1987/vw_financeiro_obra.git
+- cd vw_financeiro_obra
 
 2. Instale as dependências
 
---- pip install -r requirements.txt
+- pip install -r requirements.txt
+- Configure as variáveis de ambiente
 
-3. Configure as variáveis de ambiente
+3. Crie um arquivo .env com as seguintes variáveis:
 
-Crie um arquivo .env com as seguintes variáveis:
-
---- FLASK_SECRET=...
---- LDAP_SERVER=...
---- LDAP_BIND_DN=...
---- LDAP_BIND_PASSWORD=...
---- LDAP_BASE_DN=...
+- FLASK_SECRET=...
+- LDAP_SERVER=...
+- LDAP_BIND_DN=...
+- LDAP_BIND_PASSWORD=...
+- LDAP_BASE_DN=...
 
 4. Execute o projeto
 
---- python app.py
+- python app.py
 
 👤 Autor
 Desenvolvido por João Paes
