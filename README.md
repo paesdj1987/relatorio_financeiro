@@ -67,7 +67,7 @@ Esses filtros foram desenvolvidos para proporcionar **flexibilidade e agilidade*
 ├── shared_data/
 │   ├── vw_financeiro_obra.csv
 │   └── log_historico_acesso.csv
-
+```
 ---
 
 ## ⚙️ Tecnologias Utilizadas
