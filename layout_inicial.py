@@ -19,7 +19,7 @@ def create_home_layout(authorized: bool = False):
     if authorized:
         msg_children = "Acesso autorizado"
 
-    # 2. Cabeçalho (logo + título)
+    # 2. Cabeçalho
     header_group = html.Div(
         [
             html.Img(

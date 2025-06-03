@@ -45,8 +45,8 @@ app = dash.Dash(
     title="Relatórios PGI",
     update_title=None,
 )
-app.server.secret_key = FLASK_SECRET      # segredo Flask
-server = app.server                       # exportado para Gunicorn
+app.server.secret_key = FLASK_SECRET      
+server = app.server                       
 
 # ─────────────────────────────────────────────────────────────
 # Layout raiz

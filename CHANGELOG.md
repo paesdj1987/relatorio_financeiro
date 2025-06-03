@@ -2,6 +2,16 @@
 
 Todas as mudanças notáveis neste projeto serão documentadas aqui.
 
+## [v1.2.0] - 2025-06-03
+
+### Adicionado
+- Prints da aplicação e imagens organizadas na pasta `assets/images`
+- Estrutura profissional no `README.md` com imagens, funcionalidades e instruções de execução
+
+### Alterado
+- Atualização visual e técnica do `README.md` para fins de portfólio
+
+
 ## [v1.1.0] - 2025-05-27 *****************
 
 ### Adicionado

@@ -98,7 +98,6 @@ def create_layout():
                                     className="d-flex justify-content-end align-items-center"
                                 ),
                             ],
-                            # Coluna vira “empilhada”: logout em cima, links embaixo
                             className="d-flex flex-column align-items-end",
                             style={"marginTop": "20px"}
                         ),

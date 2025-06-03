@@ -35,7 +35,7 @@ def register_callbacks_inicial(app):
             return (
                 "Preencha usuário e senha",
                 True,
-                "warning",     # amarelo claro
+                "warning",    
                 dash.no_update
             )
 
@@ -46,7 +46,7 @@ def register_callbacks_inicial(app):
             return (
                 "Servidor indisponível. Tente mais tarde.",
                 True,
-                "danger",      # vermelho claro
+                "danger",      
                 dash.no_update
             )
 
@@ -60,7 +60,7 @@ def register_callbacks_inicial(app):
             return (
                 "Acesso autorizado",
                 True,
-                "success",     # verde claro
+                "success",    
                 "/home"
             )
 

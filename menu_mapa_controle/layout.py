@@ -12,7 +12,7 @@ def create_layout():
     cache = dcc.Store(id="df-cache", storage_type="memory")
     
     # ----------------------------------------------------------------
-    # 1. Cabeçalho Moderno e Profissional (adaptado)
+    # 1. Cabeçalho
 
     header = dbc.Container(
     fluid=True,

@@ -9,7 +9,7 @@ def create_layout():
     contendo inicialmente apenas o cabeçalho moderno com largura ajustada.
     """
 
-    # 1. Cabeçalho Moderno e Profissional
+    # 1. Cabeçalho
 
     header = dbc.Container(
         fluid=True,

@@ -52,7 +52,7 @@ def register_callbacks_mapa(app):
                 sep=";", encoding="utf-8", dtype=str, engine="python"
             ).fillna("").astype(str)
 
-            # filtros (mesma lógica de antes) ────────────────────────
+            # filtros ────────────────────────
             def apply_filter(df, col, terms):
                 if not terms:
                     return df
