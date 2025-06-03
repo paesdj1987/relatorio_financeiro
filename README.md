@@ -73,14 +73,14 @@ Esses filtros foram desenvolvidos para proporcionar **flexibilidade e agilidade*
 ## ⚙️ Tecnologias Utilizadas
 A aplicação foi desenvolvida com Python e conta com as seguintes bibliotecas:
 
-📊 Dash — Framework para criação de dashboards interativos em Python
-💠 Dash Bootstrap Components — Componentes visuais baseados no Bootstrap
-📈 Pandas — Manipulação e análise de dados
-🛠️ SQLAlchemy — ORM para conexão com banco de dados
-🧩 oracledb — Driver Oracle para conexão nativa com banco de dados
-🔒 ldap3 — Integração com serviços de diretório LDAP
-📤 XlsxWriter — Exportação de planilhas Excel com formatação
-⚙️ python-dotenv — Gerenciamento de variáveis de ambiente com .env
+- 📊 Dash — Framework para criação de dashboards interativos em Python
+- 💠 Dash Bootstrap Components — Componentes visuais baseados no Bootstrap
+- 📈 Pandas — Manipulação e análise de dados
+- 🛠️ SQLAlchemy — ORM para conexão com banco de dados
+- 🧩 oracledb — Driver Oracle para conexão nativa com banco de dados
+- 🔒 ldap3 — Integração com serviços de diretório LDAP
+- 📤 XlsxWriter — Exportação de planilhas Excel com formatação
+- ⚙️ python-dotenv — Gerenciamento de variáveis de ambiente com .env
 
 ---
 
