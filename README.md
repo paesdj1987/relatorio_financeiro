@@ -34,13 +34,13 @@ Dashboard profissional desenvolvido em Python com Dash, voltado à gestão e an�
 
 Cada campo de pesquisa na tela do *Mapa de Controle* permite ao usuário refinar os dados com precisão. Abaixo, seguem as siglas utilizadas:
 
-- 🔎 **Pesquisar por SC** — *Solicitação de Compra*: permite pesquisar as solicitações de materiais feitas para as obras.
-- 🔎 **Pesquisar por PC** — *Pedido de Compra*: pesquisa os pedidos formalizados a fornecedores.
-- 🔎 **Pesquisar por NF** — *Nota Fiscal*: busca por documentos fiscais relacionados às entregas.
-- 🏗️ **Pesquisar por UO** — *Unidade Organizacional*: cada unidade representa um empreendimento da empresa.
-- 🧱 **Pesquisar por Insumo** — permite filtrar por tipo de material solicitado ou adquirido.
-- 🧾 **Pesquisar por Fornecedor** — busca pelos parceiros comerciais que forneceram os produtos ou serviços.
-- 💼 **Pesquisar por UA** — *Unidade Analítica*: refere-se ao centro de custo ou unidade contábil utilizada internamente.
+- 🔎 **Pesquisar por SC** — *Solicitação de Compra*: permite pesquisar as solicitações de materiais feitas para as obras.  
+- 🔎 **Pesquisar por PC** — *Pedido de Compra*: pesquisa os pedidos formalizados a fornecedores.  
+- 🔎 **Pesquisar por NF** — *Nota Fiscal*: busca por documentos fiscais relacionados às entregas.  
+- 🏗️ **Pesquisar por UO** — *Unidade Organizacional*: cada unidade representa um empreendimento da empresa.  
+- 🧱 **Pesquisar por Insumo** — permite filtrar por tipo de material solicitado ou adquirido.  
+- 🧾 **Pesquisar por Fornecedor** — busca pelos parceiros comerciais que forneceram os produtos ou serviços.  
+- 💼 **Pesquisar por UA** — *Unidade Analítica*: refere-se ao centro de custo ou unidade contábil utilizada internamente.  
 
 Esses filtros foram desenvolvidos para proporcionar **flexibilidade e agilidade** na análise dos dados financeiros da operação.
 
@@ -68,39 +68,43 @@ Esses filtros foram desenvolvidos para proporcionar **flexibilidade e agilidade*
 │   ├── vw_financeiro_obra.csv
 │   └── log_historico_acesso.csv
 
----
+⚙️ Tecnologias Utilizadas
+A aplicação foi desenvolvida com Python e conta com as seguintes bibliotecas:
 
-## ⚙️ Tecnologias Utilizadas
+📊 Dash — Framework para criação de dashboards interativos em Python
+💠 Dash Bootstrap Components — Componentes visuais baseados no Bootstrap
+📈 Pandas — Manipulação e análise de dados
+🛠️ SQLAlchemy — ORM para conexão com banco de dados
+🧩 oracledb — Driver Oracle para conexão nativa com banco de dados
+🔒 ldap3 — Integração com serviços de diretório LDAP
+📤 XlsxWriter — Exportação de planilhas Excel com formatação
+⚙️ python-dotenv — Gerenciamento de variáveis de ambiente com .env
 
-> Desenvolvido com **Python** e as bibliotecas:
+🏁 Como Executar Localmente
+Siga os passos abaixo para rodar o projeto em ambiente local:
 
-- [Dash](https://dash.plotly.com/)
-- [Dash Bootstrap Components](https://dash-bootstrap-components.opensource.faculty.ai/)
-- [Pandas](https://pandas.pydata.org/)
-- [SQLAlchemy](https://www.sqlalchemy.org/)
-- [oracledb](https://oracle.github.io/python-oracledb/)
-- [ldap3](https://ldap3.readthedocs.io/en/latest/)
-- [XlsxWriter](https://xlsxwriter.readthedocs.io/)
-- [python-dotenv](https://pypi.org/project/python-dotenv/)
+1. Clone o repositório
 
----
+--- git clone https://github.com/paesdj1987/vw_financeiro_obra.git
+--- cd vw_financeiro_obra
 
-## 🏁 Como Executar Localmente
+2. Instale as dependências
 
-1. Clone o repositório:
+--- pip install -r requirements.txt
 
-- git clone https://github.com/paesdj1987/vw_financeiro_obra.git
-- cd vw_financeiro_obra
+3. Configure as variáveis de ambiente
 
-2. Instale as dependências:
+Crie um arquivo .env com as seguintes variáveis:
 
-- pip install -r requirements.txt
+--- FLASK_SECRET=...
+--- LDAP_SERVER=...
+--- LDAP_BIND_DN=...
+--- LDAP_BIND_PASSWORD=...
+--- LDAP_BASE_DN=...
 
-3. Configure o arquivo .env com as variáveis de ambiente LDAP.
+4. Execute o projeto
 
-4. Execute o projeto:
-
-- python app.py
+--- python app.py
 
 👤 Autor
 Desenvolvido por João Paes
