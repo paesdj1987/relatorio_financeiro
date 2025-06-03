@@ -68,8 +68,9 @@ Esses filtros foram desenvolvidos para proporcionar **flexibilidade e agilidade*
 │   ├── vw_financeiro_obra.csv
 │   └── log_historico_acesso.csv
 
+---
 
-⚙️ Tecnologias Utilizadas
+## ⚙️ Tecnologias Utilizadas
 A aplicação foi desenvolvida com Python e conta com as seguintes bibliotecas:
 
 📊 Dash — Framework para criação de dashboards interativos em Python
@@ -81,8 +82,9 @@ A aplicação foi desenvolvida com Python e conta com as seguintes bibliotecas:
 📤 XlsxWriter — Exportação de planilhas Excel com formatação
 ⚙️ python-dotenv — Gerenciamento de variáveis de ambiente com .env
 
+---
 
-🏁 Como Executar Localmente
+## 🏁 Como Executar Localmente
 Siga os passos abaixo para rodar o projeto em ambiente local:
 
 1. Clone o repositório
@@ -107,6 +109,8 @@ Siga os passos abaixo para rodar o projeto em ambiente local:
 
 - python app.py
 
-👤 Autor
+---
+
+## 👤 Autor
 Desenvolvido por João Paes
 🔗 github.com/paesdj1987
