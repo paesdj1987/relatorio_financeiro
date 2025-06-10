@@ -131,5 +131,8 @@ clientside_callback(
 # Execução local (desenvolvimento)
 
 if __name__ == "__main__":
-    print("Aplicação iniciada em modo DEV…")
-    app.run_server(debug=True, host="0.0.0.0", port=8052)
+    print("Modo Dev. Link de acesso: http://localhost:8052")
+    try:
+        app.run(debug=True, host="0.0.0.0", port=8052)
+    except AttributeError:
+        app.run_server(debug=True, host="0.0.0.0", port=8052)

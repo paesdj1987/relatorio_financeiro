@@ -2,6 +2,13 @@
 
 Todas as mudanças notáveis neste projeto serão documentadas aqui.
 
+## [v1.2.2] - 2025-06-10
+
+### Alterado
+- Atualização visual e técnica do `README.md` para fins de portfólio
+- Ajuste no request.py
+- Ajuste no arquivo .env
+
 ## [v1.2.1] - 2025-06-03
 
 ### Alterado

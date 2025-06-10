@@ -55,7 +55,13 @@ Esses filtros foram desenvolvidos para proporcionar **flexibilidade e agilidade*
 ├── callbacks_inicial.py
 ├── request.py
 ├── ldap_auth.py
+├── menu_analise_contrato/
+│   ├── layout.py
+│   └── callbacks.py
 ├── menu_mapa_controle/
+│   ├── layout.py
+│   └── callbacks.py
+├── menu_saldo_contrato/
 │   ├── layout.py
 │   └── callbacks.py
 ├── assets/
@@ -89,8 +95,8 @@ Siga os passos abaixo para rodar o projeto em ambiente local:
 
 1. Clone o repositório
 
-- git clone https://github.com/paesdj1987/vw_financeiro_obra.git
-- cd vw_financeiro_obra
+- git clone https://github.com/paesdj1987/relatorio_financeiro.git
+- cd relatorio_financeiro
 
 2. Instale as dependências
 
@@ -104,6 +110,12 @@ Siga os passos abaixo para rodar o projeto em ambiente local:
 - LDAP_BIND_DN=...
 - LDAP_BIND_PASSWORD=...
 - LDAP_BASE_DN=...
+- ORACLE_USER=...
+- ORACLE_PASSWORD=...
+- ORACLE_HOST=...
+- ORACLE_PORT=...
+- ORACLE_SERVICE=...
+- ORACLE_INSTANT_CLIENT_PATH=...
 
 4. Execute o projeto
 

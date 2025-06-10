@@ -4,11 +4,14 @@ import re
 import pandas as pd
 from sqlalchemy import create_engine
 import oracledb
+from dotenv import load_dotenv
+load_dotenv()  
+
 
 def fetch_data_from_oracle():
     try:
         # Caminho do Oracle Instant Client
-        instant_client_path = r"C:\Users\joaodanilo\Oracle\instantclient"
+        instant_client_path = os.getenv('ORACLE_INSTANT_CLIENT_PATH')
         if not os.path.exists(instant_client_path):
             raise FileNotFoundError(
                 f"Oracle Instant Client não encontrado: {instant_client_path}"
@@ -19,7 +22,7 @@ def fetch_data_from_oracle():
         print("Oracle Client inicializado com sucesso.")
 
         # Configurar a string de conexão
-        connection_string = "oracle+oracledb://OR_CONSULTA:OR_CONSULTA@10.148.64.157:1521/PRODMZ"
+        connection_string = f"oracle+oracledb://{os.getenv('ORACLE_USER')}:{os.getenv('ORACLE_PASSWORD')}@{os.getenv('ORACLE_HOST')}:{os.getenv('ORACLE_PORT')}/{os.getenv('ORACLE_SERVICE')}"
 
         # Criar o engine do SQLAlchemy
         print("Conectando ao banco de dados Oracle...")
