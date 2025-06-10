@@ -2,6 +2,11 @@
 
 Todas as mudanças notáveis neste projeto serão documentadas aqui.
 
+## [v1.2.1] - 2025-06-03
+
+### Alterado
+- Atualização visual e técnica do `README.md` para fins de portfólio
+
 ## [v1.2.0] - 2025-06-03
 
 ### Adicionado
