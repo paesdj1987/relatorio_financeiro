@@ -4,7 +4,7 @@
 FROM python:3.12-slim
 
 # 1. diretório de trabalho
-WORKDIR /VW_FINANCEIRO_OBRA
+WORKDIR /relatorio_financeiro
 
 # 2. cópia do projeto
 COPY . .
