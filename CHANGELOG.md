@@ -2,6 +2,11 @@
 
 Todas as mudanças notáveis neste projeto serão documentadas aqui.
 
+## [v1.3.0] - 2025-06-12
+
+### Alterado
+-  Add footer, welcome message and intuitive login
+
 ## [v1.2.2] - 2025-06-10
 
 ### Alterado
