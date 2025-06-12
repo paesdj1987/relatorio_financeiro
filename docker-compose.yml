@@ -21,7 +21,7 @@ services:
     build: .
     container_name: relatorio_financeiro_request
     command: >
-      sh -c "while true; do python /VW_FINANCEIRO_OBRA/request.py && sleep 43200; done"
+      sh -c "while true; do python /relatorio_financeiro/request.py && sleep 43200; done"
     volumes:
       - shared_data:/shared_data
     depends_on:
