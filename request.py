@@ -90,7 +90,7 @@ def fetch_data_from_oracle():
                 df[col] = pd.to_datetime(df[col], errors="coerce").dt.strftime("%d/%m/%Y")
 
         # 3) Salvar em CSV
-        output_csv = "shared_data/vw_financeiro_obra.csv"
+        output_csv = "/shared_data/vw_financeiro_obra.csv"
         os.makedirs(os.path.dirname(output_csv), exist_ok=True)
 
         df.to_csv(output_csv, index=False, encoding="utf-8", sep=";")

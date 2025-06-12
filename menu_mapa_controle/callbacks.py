@@ -48,7 +48,7 @@ def register_callbacks_mapa(app):
         # ---------- CONSULTAR ----------
         try:
             df = pd.read_csv(
-                "shared_data/vw_financeiro_obra.csv",
+                "/shared_data/vw_financeiro_obra.csv",
                 sep=";", encoding="utf-8", dtype=str, engine="python"
             ).fillna("").astype(str)
 
