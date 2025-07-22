@@ -1,0 +1,280 @@
+/* =============================
+   VARIÁVEIS (cores, fontes, etc.)
+   ============================= */
+:root {
+    --primary-color: #3d5462;
+    --secondary-color: #6c757d;
+    --accent-color: #FAA80A;
+    --bg-color: #f5f7fa;
+    --font-family: 'Poppins', sans-serif;
+    --transition-speed: 0.3s;
+}
+
+/* =============================
+   RESET E GERAIS
+   ============================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--bg-color);
+    color: #333;
+}
+
+/* =============================
+   ANIMAÇÕES
+   ============================= */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* =============================
+   EFEITOS DE HOVER NOS BOTÕES
+   ============================= */
+.btn-home,
+#consultar-button,
+#limpar-button {
+    transition: all var(--transition-speed) ease-in-out;
+    cursor: pointer;
+}
+
+#consultar-button:hover {
+    background-color: #e89d18;
+    transform: scale(1.05);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
+}
+
+#limpar-button:hover {
+    background-color: #3d5260;
+    transform: scale(1.05);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
+}
+
+.nav-button:hover {
+    background-color: #fff !important;
+    color: #35546F !important;
+    border-color: #35546F !important;
+}
+
+.btn-home:hover {
+    background-color: #fff !important;
+    color: #343a40 !important;
+    border: 2px solid #343a40 !important;
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* ==========================================================
+   BLOCO COMPLETO para colar no lugar do seu .home-container
+   ========================================================== */
+.home-container {
+    position: relative;
+    width: 100vw;     /* cobre lateral */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    text-align: center;
+}
+
+/* ======== Fundo padrão: notebooks (<= 16:9) ========= */
+.home-container::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:url("/assets/evoke.jpg") 50% center / cover no-repeat;
+    /* ↑ 50 % mantém o prédio visível em telas até aprox. 16:9 */
+    opacity:.25;
+    z-index:0;
+}
+
+/* 16 : 9 – ≈ 21 : 9  ➜ move um pouco p/ direita e um pouco p/ cima  */
+@media (min-aspect-ratio:16/9){
+    .home-container::before{
+        background-size: cover;         /* mantém laterais cheias          */
+        background-position: 10% 25%;   /* 60 % → direita | 20 % → 1/5 top  */
+    }
+}
+
+/* Ultra-wide (≥ 21 : 9)  ➜ mais direita, mais alto                */
+@media (min-aspect-ratio:21/9){
+    .home-container::before{
+        background-size: cover;
+        background-position: 20% 25%;   /* ajuste livre: 25 % melhora topo */
+    }
+}
+
+
+/* ======== Conteúdo acima do fundo  =================== */
+.home-container>*{
+    position:relative;
+    z-index:1;
+}
+
+
+
+.login-message {
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+/* Reduz o tamanho do spinner do Loading#loading-login */
+#loading-login .dash-spinner {
+  width: 2.5rem !important;
+  height: 2.5rem !important;
+}
+
+/* =============================
+   RESPONSIVIDADE (Notebooks e Tablets)
+   ============================= */
+@media (max-width: 1024px) {
+    .home-logo {
+        width: 150px !important;
+    }
+
+    .home-title {
+        font-size: 32px !important;
+    }
+
+    .login-card {
+        width: 90% !important;
+        margin-top: 20px !important;
+    }
+
+    .btn-home {
+        padding: 10px 20px !important;
+        font-size: 16px !important;
+        margin: 10px !important;
+    }
+}
+
+/* =========================================================================
+   LOGIN SPINNER — overlay dual-ring moderno
+   ====================================================================== */
+
+/* Quando o dcc.Loading está ativo ele adiciona data-dash-is-loading="true" */
+#loading-login[data-dash-is-loading="true"] {
+    position: absolute !important;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.65);
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 5;          /* fica acima do conteúdo do card */
+}
+
+/* Esconde o spinner padrão para usar o nosso */
+#loading-login[data-dash-is-loading="true"] .dash-spinner {
+    display: none;
+}
+
+/* Cria o dual-ring animado */
+#loading-login[data-dash-is-loading="true"]::after {
+    content: "";
+    width: 54px;
+    height: 54px;
+    border: 4px solid transparent;
+    border-top-color: var(--accent-color, #FAA80A);   /* laranja */
+    border-left-color: var(--primary-color, #3d5462); /* azul-petróleo */
+    border-radius: 50%;
+    animation: spin 0.9s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+
+/* ======================
+   CAMPO PARA DATA
+   ====================== */
+
+/* asterisco */
+.required-asterisk {
+    color: red;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+}
+
+/* seta */
+.date-arrow {
+    background: transparent;
+    border: none;
+    font-weight: bold;
+    font-size: 16px;
+    margin: 0 0;               
+}
+
+/* wrapper de cada picker (mantém estilos) */
+.date-pick {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    background: transparent !important;
+    box-shadow: none !important;
+    position: relative;
+}
+
+/* input interno – sem alteração de largura/estilo */
+.date-pick .DateInput_input,
+.date-pick .DateInput_input__open_to_date,
+.date-pick .DateInput_input__focused {
+    width: 135px !important;
+    height: 42px !important;
+    line-height: 42px !important;
+    font-family: "Poppins", sans-serif !important;
+    font-size: 12px !important;
+    color: #495057 !important;
+    background-color: #ffffff !important;
+    border: 1px solid #d1d1d1 !important;
+    border-radius: 1px !important;
+    padding: 0 10px !important;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.1) !important;
+}
+
+/* placeholder igual */
+.date-pick .DateInput_input::placeholder {
+    color: #6c757d !important;
+    font-size: 12px !important;
+    opacity: 1 !important;
+}
+
+/* remove borda extra do wrapper interno */
+.date-pick .DateInput {
+    border: none !important;
+    box-shadow: none !important;
+}
+
+/* ícone de calendário */
+.date-pick::after {
+    content: "\f073";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    position: absolute;
+    right: 0px;
+    margin-right : 5px !important;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #6c757d;
+    pointer-events: none;
+}
+
+/* posicionamento */
+.date-pick-left  { margin-right: 20px !important; }  /* empurra para a esquerda */
+.date-pick-right { margin-left : 10px !important; }  /* empurra para a direita */

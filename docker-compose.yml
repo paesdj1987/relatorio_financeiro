@@ -1,0 +1,23 @@
+services:
+  app:
+    image: 'vw_financeiro_obra:latest'
+    build:
+      context: .
+    container_name: vw_financeiro_obra
+    ports:
+      - 8052:8052
+    volumes:
+      - shared_data:/shared_data
+
+  request_job:
+    image: 'vw_financeiro_obra:latest'
+    build:
+      context: .
+    container_name: vw_financeiro_obra_request
+    command: >
+      sh -c "while true; do python /VW_FINANCEIRO_OBRA/request.py && sleep 43200; done"
+    volumes:
+      - shared_data:/shared_data
+
+volumes:
+  shared_data:
