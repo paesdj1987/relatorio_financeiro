@@ -2,30 +2,34 @@ version: "3.9"
 
 services:
   app:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: relatorio_financeiro:latest
     container_name: relatorio_financeiro
     ports:
       - "8052:8052"
     volumes:
-      - shared_data:/shared_data
-    environment:
-      - FLASK_SECRET
-      - LDAP_SERVER
-      - LDAP_BIND_DN
-      - LDAP_BIND_PASSWORD
-      - LDAP_BASE_DN
-      - LDAP_USER_SEARCH_FILTER
-
+      - shared_data:/relatorio_financeiro/shared_data
+    env_file:
+      - .env
+    restart: always
 
   request_job:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: relatorio_financeiro_request:latest
     container_name: relatorio_financeiro_request
     command: >
-      sh -c "while true; do python /relatorio_financeiro/request.py && sleep 43200; done"
+      sh -c "while true; do python request.py && sleep 43200; done"
     volumes:
-      - shared_data:/shared_data
+      - shared_data:/relatorio_financeiro/shared_data
     depends_on:
-      - app                                     # opcional
+      - app
+    env_file:
+      - .env
+    restart: always
 
 volumes:
   shared_data:
