@@ -7,21 +7,31 @@ import oracledb
 from sqlalchemy import create_engine
 from typing import List
 
-# Carrega variáveis de ambiente do .env
+# Carrega .env
 load_dotenv()
 
 def connect():
     """
-    Thick mode + TNS: carrega as DLLs do Instant Client e usa alias TNS.
+    Thick mode + TNS: carrega as DLLs do Instant Client 
+    e usa alias TNS (via tnsnames.ora em TNS_ADMIN).
     """
     instant_client = os.getenv("ORACLE_INSTANT_CLIENT_PATH")
     if not instant_client:
         raise RuntimeError("ORACLE_INSTANT_CLIENT_PATH não definido no .env")
-    os.add_dll_directory(instant_client)
+
+    # Só no Windows existe add_dll_directory
+    try:
+        os.add_dll_directory(instant_client)
+    except (AttributeError, NotImplementedError):
+        # Linux ignora
+        pass
 
     tns_admin = os.getenv("TNS_ADMIN")
     if tns_admin:
-        oracledb.init_oracle_client(lib_dir=instant_client, config_dir=tns_admin)
+        oracledb.init_oracle_client(
+            lib_dir=instant_client,
+            config_dir=tns_admin
+        )
     else:
         oracledb.init_oracle_client(lib_dir=instant_client)
 

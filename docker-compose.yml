@@ -1,5 +1,3 @@
-version: "3.9"
-
 services:
   app:
     build:
@@ -13,23 +11,27 @@ services:
       - shared_data:/relatorio_financeiro/shared_data
     env_file:
       - .env
-    restart: always
+    environment:
+      - ORACLE_INSTANT_CLIENT_PATH=/usr/lib/oracle/instantclient
+    restart: unless-stopped
 
   request_job:
     build:
       context: .
       dockerfile: Dockerfile
-    image: relatorio_financeiro_request:latest
+    image: relatorio_financeiro:latest
     container_name: relatorio_financeiro_request
     command: >
       sh -c "while true; do python request.py && sleep 43200; done"
     volumes:
       - shared_data:/relatorio_financeiro/shared_data
-    depends_on:
-      - app
     env_file:
       - .env
-    restart: always
+    environment:
+      - ORACLE_INSTANT_CLIENT_PATH=/usr/lib/oracle/instantclient
+    depends_on:
+      - app
+    restart: unless-stopped
 
 volumes:
   shared_data:
