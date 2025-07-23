@@ -157,7 +157,7 @@ WHERE
     "psc"."idt" IN ('4', '9', '10' ,'12', '13', '14', '17')
     AND (:dt_ini IS NULL OR TRUNC("sc"."data_registro") >= TO_DATE(:dt_ini,'YYYY-MM-DD'))
     AND (:dt_fim IS NULL OR TRUNC("sc"."data_registro") <= TO_DATE(:dt_fim,'YYYY-MM-DD'))
-    AND "nf_sts"."descricao" IN ('Aprovado', 'Registra Parcelas')
+    
 
     """
     # ---------- parâmetros ----------
@@ -178,5 +178,8 @@ WHERE
 
     # Executa a query e retorna DataFrame filtrado
     return pd.read_sql(base_sql, con=engine, params=params)
+
+
+
 
 

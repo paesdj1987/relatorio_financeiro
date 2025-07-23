@@ -138,7 +138,22 @@ def register_callbacks_mapa(app):
             df = apply_filter(df, "Descricao_do_Insumo", insumo_filter)
             df = apply_filter(df, "Fornecedor", fornecedor_filter)
             df = apply_filter(df, "UA_Codigo", ua_codigo_filter)
- 
+
+            if df.empty:
+                alerta = dbc.Alert(
+                    "Nenhum resultado encontrado para os filtros informados.",
+                    color="warning",
+                    duration=8000,
+                    is_open=True,
+                    style={
+                        "textAlign": "center",
+                        "width": "50%",
+                        "margin": "0 auto",
+                        "marginBottom": "30px",
+                    }
+                )
+                return alerta, {"display": "none"}, None
+
             table = html.Div(
                 dash_table.DataTable(
                     data=df.to_dict("records"),

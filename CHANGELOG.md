@@ -2,6 +2,10 @@
 
 Todas as mudanças notáveis neste projeto serão documentadas aqui.
 
+## [v1.2.5] - 2025-07-23
+### Adicionado
+- Inserção de alerta quando nenhuma informação for encontrada na consulta no callbacks.py.
+
 ## [v1.2.4] - 2025-07-22
 ### Adicionado
 - Suporte a múltiplas UOs no campo "Pesquisar por UO": agora aceita códigos separados por ponto-e-vírgula e gera cláusula IN dinamicamente no SQL.
