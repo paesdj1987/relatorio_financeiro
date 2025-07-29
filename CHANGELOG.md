@@ -2,6 +2,25 @@
 
 Todas as mudanças notáveis neste projeto serão documentadas aqui.
 
+## [v1.2.7] - 2025-07-29
+### Adicionado
+- Implementado cache SQLite compartilhado em disco, substituindo o cache global em memória.
+- Novo módulo cache_sqlite.py com funções load_df, save_df e refresh_async em modo WAL.
+- Lógica de cache atualizada em menu_mapa_controle/callbacks.py para estratégia stale-while-revalidate com TTL de 2 horas.
+- Callback download_excel ajustado para inclusão da coluna Tempo_Atendimento (em dias) no export.
+- Criado scheduler.py para agendamento externo de refresh do cache a cada 2 horas.
+- Atualizado docker-compose.yml : Bind‑mount do cache.db no serviço app e no scheduler e Adição do serviço scheduler para manter o cache aquecido.
+
+### Alterado
+- menu_mapa_controle/callbacks.py: remoção de variáveis globais (df_global, fetch_lock, etc.) e integração com SQLite.
+- app.py: chamada de init_cache() no startup.
+- cache_sqlite.py: criação e inicialização do banco em modo WAL.
+- docker-compose.yml: inclusão do serviço scheduler e uniformização dos mount paths.
+
+## [v1.2.6] - 2025-07-23
+### Adicionado
+- Ajustes docker-compose.yml e Dockerfile.
+
 ## [v1.2.5] - 2025-07-23
 ### Adicionado
 - Inserção de alerta quando nenhuma informação for encontrada na consulta no callbacks.py.

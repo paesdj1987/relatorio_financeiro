@@ -2,6 +2,8 @@
 
 import os
 from dotenv import load_dotenv
+from cache_sqlite import init as init_cache
+init_cache()          # garante PRAGMA WAL e índices logo no boot
 
 load_dotenv()
 

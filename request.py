@@ -19,11 +19,10 @@ def connect():
     if not instant_client:
         raise RuntimeError("ORACLE_INSTANT_CLIENT_PATH não definido no .env")
 
-    # Só no Windows existe add_dll_directory
+
     try:
         os.add_dll_directory(instant_client)
     except (AttributeError, NotImplementedError):
-        # Linux ignora
         pass
 
     tns_admin = os.getenv("TNS_ADMIN")
@@ -108,36 +107,25 @@ def control_map_query(
     "fc"."valor_unitario_anterior"              AS "Valor_Unitario_Anterior",
     "fc"."valor_total_anterior"                 AS "Valor_Total_Anterior"
 FROM OR_PCO."pco_sc"                           "sc"
-
     /* obra / empresa solicitante */
-    LEFT JOIN OR_PGI."sca_organizacao_secao"     "emp" ON "sc"."idt_empresa_solicitante" = "emp"."idt"
-      
+    LEFT JOIN OR_PGI."sca_organizacao_secao"     "emp" ON "sc"."idt_empresa_solicitante" = "emp"."idt"     
     /* fornecedor da SC */
-    LEFT JOIN OR_PCO."pco_sc_fornecedor"         "psf" ON "psf"."idt_sc" = "sc"."idt"
-           
+    LEFT JOIN OR_PCO."pco_sc_fornecedor"         "psf" ON "psf"."idt_sc" = "sc"."idt"           
     /* Status da SC */
-	  LEFT JOIN OR_PCO."pco_status_sc" 			       "psc" ON "sc"."idt_status_sc" = "psc"."idt"
-	  		
+	  LEFT JOIN OR_PCO."pco_status_sc" 			       "psc" ON "sc"."idt_status_sc" = "psc"."idt"	  		
     /* SC → insumo → empresa_insumo */
     INNER JOIN OR_PCO."pco_sc_insumo"            "sci" ON "sci"."idt_sc" = "sc"."idt"      
-    INNER JOIN OR_PCO."pco_sc_insumo_empresa"    "scie" ON "scie"."idt_sci" = "sci"."idt"
-      
+    INNER JOIN OR_PCO."pco_sc_insumo_empresa"    "scie" ON "scie"."idt_sci" = "sci"."idt"      
     /* cotação do insumo */
-    INNER JOIN OR_PFO."pfo_cotacao_insumo"       "coi" ON "coi"."idt_sc_insumo_empresa" = "scie"."idt"
-      
+    INNER JOIN OR_PFO."pfo_cotacao_insumo"       "coi" ON "coi"."idt_sc_insumo_empresa" = "scie"."idt"      
     /* nota técnica */
-    LEFT JOIN OR_PCO."pco_nt"                    "nt" ON "nt"."idt_sc" = "sc"."idt"
-      
+    LEFT JOIN OR_PCO."pco_nt"                    "nt" ON "nt"."idt_sc" = "sc"."idt"     
     /* pedido de compra */
-    LEFT JOIN OR_PFO."pfo_pedido_compra"         "pc" ON "pc"."idt_sc" = "sc"."idt"
-      
+    LEFT JOIN OR_PFO."pfo_pedido_compra"         "pc" ON "pc"."idt_sc" = "sc"."idt"      
     /* nota fiscal */
     LEFT JOIN OR_PCO."pco_nf"                    "nf" ON "nf"."idt_sc_del" = "sc"."idt"
-
     /* item de NF */
-    LEFT JOIN OR_PCO."pco_nf_insumo"             "nfi" ON "nfi"."idt_nf" = "nf"."idt"
-      
-    
+    LEFT JOIN OR_PCO."pco_nf_insumo"             "nfi" ON "nfi"."idt_nf" = "nf"."idt"        
     /*  1- junta conciliações + filtro por cotação em um único sub‐agregado */
     LEFT JOIN (
       SELECT
@@ -151,24 +139,18 @@ FROM OR_PCO."pco_sc"                           "sc"
     )                                           "nfi_conc_agg"
       ON "nfi_conc_agg"."idt_nf_insumo"      = "nfi"."idt"
      AND "nfi_conc_agg"."idt_cotacao_insumo"  = "coi"."idt"
-
     /* status da NF */
-    LEFT JOIN OR_PCO."pco_status_nf"             "nf_sts" ON "nf_sts"."idt" = "nf"."idt_status_nf"
-      
+    LEFT JOIN OR_PCO."pco_status_nf"             "nf_sts" ON "nf_sts"."idt" = "nf"."idt_status_nf"     
     /* previsão de entrega (PC × NF) */
-    LEFT JOIN OR_PFO."pfo_pedido_compra_nf"      "pcnf" ON "pcnf"."idt_pc" = "pc"."idt" AND "pcnf"."nf_numero" = "nf"."numero" AND "pcnf"."nf_serie" = "nf"."serie"
-    
+    LEFT JOIN OR_PFO."pfo_pedido_compra_nf"      "pcnf" ON "pcnf"."idt_pc" = "pc"."idt" AND "pcnf"."nf_numero" = "nf"."numero" AND "pcnf"."nf_serie" = "nf"."serie"   
     /* fiscal/contábil da NT */
-    LEFT JOIN OR_PCO."pco_nt_fiscal_contabil"    "fc" ON "fc"."idt_sc_insumo_empresa" = "scie"."idt" AND "fc"."idt_nt" = "nt"."idt"
-  
+    LEFT JOIN OR_PCO."pco_nt_fiscal_contabil"    "fc" ON "fc"."idt_sc_insumo_empresa" = "scie"."idt" AND "fc"."idt_nt" = "nt"."idt"  
     /* UA / centro de custo */
     LEFT JOIN OR_PGI."cge_centro_resultado"      "ua" ON "ua"."idt" = "fc"."idt_centro_custo"
 WHERE
     "psc"."idt" IN ('4', '9', '10' ,'12', '13', '14', '17')
     AND (:dt_ini IS NULL OR TRUNC("sc"."data_registro") >= TO_DATE(:dt_ini,'YYYY-MM-DD'))
     AND (:dt_fim IS NULL OR TRUNC("sc"."data_registro") <= TO_DATE(:dt_fim,'YYYY-MM-DD'))
-    
-
     """
     # ---------- parâmetros ----------
     params: dict[str, str] = {

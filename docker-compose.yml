@@ -9,28 +9,29 @@ services:
       - "8052:8052"
     volumes:
       - shared_data:/relatorio_financeiro/shared_data
+      - ./cache.db:/relatorio_financeiro/cache.db
     env_file:
       - .env
     environment:
       - ORACLE_INSTANT_CLIENT_PATH=/usr/lib/oracle/instantclient
     restart: unless-stopped
 
-  request_job:
+  scheduler:
     build:
       context: .
       dockerfile: Dockerfile
-    image: relatorio_financeiro:latest
-    container_name: relatorio_financeiro_request
-    command: >
-      sh -c "while true; do python request.py && sleep 43200; done"
+    image: vw_financeiro_obra:latest
+    container_name: vw_financeiro_obra_scheduler
+    command: python scheduler.py        # seu loop de refresh em 2 h
+    depends_on:
+      - app
     volumes:
-      - shared_data:/relatorio_financeiro/shared_data
+      - ./cache.db:/app/cache.db
+      - ./shared_data:/app/shared_data
     env_file:
       - .env
     environment:
       - ORACLE_INSTANT_CLIENT_PATH=/usr/lib/oracle/instantclient
-    depends_on:
-      - app
     restart: unless-stopped
 
 volumes:
