@@ -1,4 +1,4 @@
-# menu_mapa_controle/callbacks.py — versão 100 % sem cache global
+# menu_mapa_controle/callbacks.py 
 # -----------------------------------------------------------------------------
 # • Cache compartilhado em SQLite (load_df / save_df / refresh_async)
 # • TTL de 2 h (stale-while-revalidate)
@@ -183,7 +183,7 @@ def register_callbacks_mapa(app):
         return table, export_style, df.to_dict("records")
 
 # -------------------------------------------------------------------------
-# Callback de exportação para Excel, com Tempo_Atendimento
+# Callback de exportação para Excel
 # -------------------------------------------------------------------------
     @app.callback(
         Output("download-dataframe-xlsx", "data"),

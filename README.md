@@ -55,6 +55,8 @@ Esses filtros foram desenvolvidos para proporcionar **flexibilidade e agilidade*
 ├── callbacks_inicial.py
 ├── request.py
 ├── ldap_auth.py
+├── scheduler.py
+├── cache_sqlite.py
 ├── menu_analise_contrato/
 │   ├── layout.py
 │   └── callbacks.py
@@ -71,7 +73,6 @@ Esses filtros foram desenvolvidos para proporcionar **flexibilidade e agilidade*
 │       ├── img_1.png
 │       └── img_2.png
 ├── shared_data/
-│   ├── vw_financeiro_obra.csv
 │   └── log_historico_acesso.csv
 ```
 ---
