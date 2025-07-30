@@ -32,6 +32,7 @@ from menu_saldo_contrato.layout    import create_layout as layout_saldo_contrato
 from menu_saldo_contrato.callbacks import register_callbacks_saldo
 from callbacks_inicial             import register_callbacks_inicial
 from layout_inicial                import create_home_layout
+from cache_sqlite import init as init_cache
 
 # ─────────────────────────────────────────────────────────────
 # Instancia o Dash
@@ -49,6 +50,31 @@ app = dash.Dash(
 )
 app.server.secret_key = FLASK_SECRET      
 server = app.server                       
+
+# ─────────────────────────────────────────────────────────────
+# app.py, após criar `app = Dash(__name__, ...)`
+app.index_string = """
+<!DOCTYPE html>
+<html>
+  <head>
+    {%metas%}
+    <title>{%title%}</title>
+    {%favicon%}
+    <!-- pré-carrega o background -->
+    <link rel="preload" as="image" href="/assets/evoke.jpg" type="image/jpeg">
+    {%css%}
+  </head>
+  <body>
+    {%app_entry%}
+    <footer>
+      {%config%}
+      {%scripts%}
+      {%renderer%}
+    </footer>
+  </body>
+</html>
+"""
+
 
 # ─────────────────────────────────────────────────────────────
 # Layout raiz
